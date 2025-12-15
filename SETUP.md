@@ -3,6 +3,7 @@
 ## Complete Installation & Deployment Guide
 
 ### Table of Contents
+
 1. [Local Development Setup](#local-development-setup)
 2. [Environment Configuration](#environment-configuration)
 3. [Real AI Integration](#real-ai-integration)
@@ -32,6 +33,7 @@ Your app will be available at `http://localhost:3000`
 ### Step 2: Verify Installation
 
 Open your browser and check:
+
 - ✅ Welcome screen loads
 - ✅ Can create new chat
 - ✅ Sidebar opens/closes
@@ -81,21 +83,21 @@ VITE_MAX_FILE_SIZE=10485760
 
 ```javascript
 export const getAIResponse = async (messages) => {
-  const response = await fetch('https://api.openai.com/v1/chat/completions', {
-    method: 'POST',
+  const response = await fetch("https://api.openai.com/v1/chat/completions", {
+    method: "POST",
     headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${import.meta.env.VITE_OPENAI_API_KEY}`
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${import.meta.env.VITE_OPENAI_API_KEY}`,
     },
     body: JSON.stringify({
-      model: 'gpt-4',
-      messages: messages.map(m => ({
+      model: "gpt-4",
+      messages: messages.map((m) => ({
         role: m.role,
-        content: m.content
+        content: m.content,
       })),
       temperature: 0.7,
       max_tokens: 2000,
-    })
+    }),
   });
 
   if (!response.ok) {
@@ -110,7 +112,7 @@ export const getAIResponse = async (messages) => {
 **Update `src/components/InputBar.jsx`:**
 
 ```javascript
-import { getAIResponse } from '../utils/api';
+import { getAIResponse } from "../utils/api";
 
 const handleSubmit = async (e) => {
   e.preventDefault();
@@ -118,30 +120,30 @@ const handleSubmit = async (e) => {
 
   const currentChat = getCurrentChat();
   const userMessage = {
-    role: 'user',
+    role: "user",
     content: input.trim(),
     timestamp: new Date().toISOString(),
   };
 
   addMessage(currentChatId, userMessage);
-  setInput('');
+  setInput("");
   setIsTyping(true);
 
   try {
     const allMessages = [...currentChat.messages, userMessage];
     const response = await getAIResponse(allMessages);
-    
+
     const aiMessage = {
-      role: 'assistant',
+      role: "assistant",
       content: response,
       timestamp: new Date().toISOString(),
     };
     addMessage(currentChatId, aiMessage);
   } catch (error) {
-    console.error('Error:', error);
+    console.error("Error:", error);
     const errorMessage = {
-      role: 'assistant',
-      content: 'Sorry, I encountered an error. Please try again.',
+      role: "assistant",
+      content: "Sorry, I encountered an error. Please try again.",
       timestamp: new Date().toISOString(),
     };
     addMessage(currentChatId, errorMessage);
@@ -157,17 +159,17 @@ const handleSubmit = async (e) => {
 
 ```javascript
 export const streamAIResponse = async (messages, onChunk, onComplete) => {
-  const response = await fetch('https://api.openai.com/v1/chat/completions', {
-    method: 'POST',
+  const response = await fetch("https://api.openai.com/v1/chat/completions", {
+    method: "POST",
     headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${import.meta.env.VITE_OPENAI_API_KEY}`
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${import.meta.env.VITE_OPENAI_API_KEY}`,
     },
     body: JSON.stringify({
-      model: 'gpt-4',
+      model: "gpt-4",
       messages: messages,
       stream: true,
-    })
+    }),
   });
 
   const reader = response.body.getReader();
@@ -181,13 +183,13 @@ export const streamAIResponse = async (messages, onChunk, onComplete) => {
     }
 
     const chunk = decoder.decode(value);
-    const lines = chunk.split('\n').filter(line => line.trim());
-    
+    const lines = chunk.split("\n").filter((line) => line.trim());
+
     for (const line of lines) {
-      if (line.startsWith('data: ')) {
+      if (line.startsWith("data: ")) {
         const data = line.slice(6);
-        if (data === '[DONE]') continue;
-        
+        if (data === "[DONE]") continue;
+
         try {
           const parsed = JSON.parse(data);
           const content = parsed.choices[0]?.delta?.content;
@@ -195,7 +197,7 @@ export const streamAIResponse = async (messages, onChunk, onComplete) => {
             onChunk(content);
           }
         } catch (e) {
-          console.error('Parse error:', e);
+          console.error("Parse error:", e);
         }
       }
     }
@@ -212,49 +214,49 @@ export const streamAIResponse = async (messages, onChunk, onComplete) => {
 **Create `backend/server.js`:**
 
 ```javascript
-const express = require('express');
-const cors = require('cors');
-const { OpenAI } = require('openai');
+const express = require("express");
+const cors = require("cors");
+const { OpenAI } = require("openai");
 
 const app = express();
 app.use(cors());
 app.use(express.json());
 
 const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY
+  apiKey: process.env.OPENAI_API_KEY,
 });
 
-app.post('/api/chat', async (req, res) => {
+app.post("/api/chat", async (req, res) => {
   try {
     const { messages } = req.body;
-    
+
     const completion = await openai.chat.completions.create({
-      model: 'gpt-4',
+      model: "gpt-4",
       messages: messages,
       stream: true,
     });
 
-    res.setHeader('Content-Type', 'text/event-stream');
-    res.setHeader('Cache-Control', 'no-cache');
-    res.setHeader('Connection', 'keep-alive');
+    res.setHeader("Content-Type", "text/event-stream");
+    res.setHeader("Cache-Control", "no-cache");
+    res.setHeader("Connection", "keep-alive");
 
     for await (const chunk of completion) {
-      const content = chunk.choices[0]?.delta?.content || '';
+      const content = chunk.choices[0]?.delta?.content || "";
       if (content) {
         res.write(`data: ${JSON.stringify({ content })}\n\n`);
       }
     }
 
-    res.write('data: [DONE]\n\n');
+    res.write("data: [DONE]\n\n");
     res.end();
   } catch (error) {
-    console.error('Error:', error);
-    res.status(500).json({ error: 'Internal server error' });
+    console.error("Error:", error);
+    res.status(500).json({ error: "Internal server error" });
   }
 });
 
 app.listen(8000, () => {
-  console.log('Server running on http://localhost:8000');
+  console.log("Server running on http://localhost:8000");
 });
 ```
 
@@ -284,6 +286,7 @@ vercel --prod
 ```
 
 **vercel.json:**
+
 ```json
 {
   "buildCommand": "npm run build",
@@ -306,6 +309,7 @@ netlify deploy --prod
 ```
 
 **netlify.toml:**
+
 ```toml
 [build]
   command = "npm run build"
@@ -320,6 +324,7 @@ netlify deploy --prod
 ### 3. Docker
 
 **Dockerfile:**
+
 ```dockerfile
 FROM node:18-alpine
 
@@ -339,6 +344,7 @@ CMD ["serve", "-s", "dist", "-l", "3000"]
 ```
 
 **Build and run:**
+
 ```bash
 docker build -t chatai .
 docker run -p 3000:3000 chatai
@@ -368,23 +374,23 @@ const fileInputRef = useRef(null);
 
 const handleFileSelect = (e) => {
   const selectedFiles = Array.from(e.target.files);
-  setFiles(prev => [...prev, ...selectedFiles]);
+  setFiles((prev) => [...prev, ...selectedFiles]);
 };
 
 const handleSubmit = async (e) => {
   e.preventDefault();
-  
+
   if (files.length > 0) {
     // Process files
     const formData = new FormData();
-    files.forEach(file => formData.append('files', file));
-    formData.append('message', input);
+    files.forEach((file) => formData.append("files", file));
+    formData.append("message", input);
 
-    const response = await fetch('/api/chat/upload', {
-      method: 'POST',
+    const response = await fetch("/api/chat/upload", {
+      method: "POST",
       body: formData,
     });
-    
+
     const result = await response.json();
     // Handle response
   }
@@ -400,16 +406,16 @@ const [isRecording, setIsRecording] = useState(false);
 const recognitionRef = useRef(null);
 
 useEffect(() => {
-  if ('webkitSpeechRecognition' in window) {
+  if ("webkitSpeechRecognition" in window) {
     const recognition = new webkitSpeechRecognition();
     recognition.continuous = true;
     recognition.interimResults = true;
 
     recognition.onresult = (event) => {
       const transcript = Array.from(event.results)
-        .map(result => result[0])
-        .map(result => result.transcript)
-        .join('');
+        .map((result) => result[0])
+        .map((result) => result.transcript)
+        .join("");
       setInput(transcript);
     };
 
@@ -436,8 +442,8 @@ npm install firebase
 ```
 
 ```javascript
-import { initializeApp } from 'firebase/app';
-import { getAuth, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
+import { initializeApp } from "firebase/app";
+import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
@@ -463,8 +469,8 @@ export const signInWithGoogle = async () => {
 
 ```javascript
 // Lazy load components
-const Message = lazy(() => import('./components/Message'));
-const Sidebar = lazy(() => import('./components/Sidebar'));
+const Message = lazy(() => import("./components/Message"));
+const Sidebar = lazy(() => import("./components/Sidebar"));
 ```
 
 ### 2. Virtual Scrolling
@@ -474,19 +480,15 @@ npm install react-window
 ```
 
 ```javascript
-import { FixedSizeList } from 'react-window';
+import { FixedSizeList } from "react-window";
 
-<FixedSizeList
-  height={600}
-  itemCount={messages.length}
-  itemSize={100}
->
+<FixedSizeList height={600} itemCount={messages.length} itemSize={100}>
   {({ index, style }) => (
     <div style={style}>
       <Message message={messages[index]} />
     </div>
   )}
-</FixedSizeList>
+</FixedSizeList>;
 ```
 
 ### 3. Message Caching
@@ -511,15 +513,18 @@ const setCachedResponse = (messageHash, response) => {
 ### Common Issues
 
 **1. API Key Not Working**
+
 - Verify key is in `.env` file
 - Restart dev server after adding env vars
 - Check API key has proper permissions
 
 **2. CORS Errors**
+
 - Use proxy in vite.config.js
 - Or set up proper CORS on backend
 
 **3. Build Errors**
+
 - Clear node_modules and reinstall
 - Check Node.js version (18+)
 - Verify all dependencies installed

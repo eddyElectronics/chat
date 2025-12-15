@@ -1,16 +1,13 @@
-import React, { useState } from 'react';
-import { motion } from 'framer-motion';
-import { Copy, Check, RotateCw, Trash2, User, Bot } from 'lucide-react';
-import ReactMarkdown from 'react-markdown';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
-import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism';
-import { format } from 'date-fns';
-import useChatStore from '../store/chatStore';
+import React, { useState } from "react";
+import { motion } from "framer-motion";
+import { Copy, Check, RotateCw, Trash2, User, Bot } from "lucide-react";
+import { format } from "date-fns";
+import useChatStore from "../store/chatStore";
 
 const Message = ({ message, index }) => {
   const [copied, setCopied] = useState(false);
   const { currentChatId, deleteMessage } = useChatStore();
-  const isUser = message.role === 'user';
+  const isUser = message.role === "user";
 
   const handleCopy = () => {
     navigator.clipboard.writeText(message.content);
@@ -30,16 +27,21 @@ const Message = ({ message, index }) => {
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, scale: 0.95 }}
       transition={{ duration: 0.3, delay: index * 0.05 }}
-      className={`mb-6 flex ${isUser ? 'justify-end' : 'justify-start'} group`}
+      className={`mb-6 flex ${isUser ? "justify-end" : "justify-start"} group`}
     >
-      <div className={`flex gap-3 max-w-[85%] ${isUser ? 'flex-row-reverse' : 'flex-row'}`}>
+      <div
+        className={`flex gap-3 max-w-[85%] ${
+          isUser ? "flex-row-reverse" : "flex-row"
+        }`}
+      >
         {/* Avatar */}
         <div
           className={`
             w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0
-            ${isUser 
-              ? 'bg-gradient-to-br from-primary-accent to-emerald-600 shadow-lg shadow-primary-accent/20' 
-              : 'bg-gradient-to-br from-primary-blue to-blue-600 shadow-lg shadow-primary-blue/20'
+            ${
+              isUser
+                ? "bg-gradient-to-br from-primary-accent to-emerald-600 shadow-lg shadow-primary-accent/20"
+                : "bg-gradient-to-br from-primary-blue to-blue-600 shadow-lg shadow-primary-blue/20"
             }
           `}
         >
@@ -55,58 +57,33 @@ const Message = ({ message, index }) => {
           <div
             className={`
               rounded-2xl px-4 py-3 shadow-message
-              ${isUser
-                ? 'bg-gradient-to-br from-primary-accent to-primary-accentHover text-white rounded-tr-sm'
-                : 'glass-effect text-gray-100 rounded-tl-sm border border-gray-700/30'
+              ${
+                isUser
+                  ? "bg-gradient-to-br from-primary-accent to-primary-accentHover text-white rounded-tr-sm"
+                  : "glass-effect text-gray-100 rounded-tl-sm border border-gray-700/30"
               }
             `}
           >
             {isUser ? (
-              <p className="text-body-lg whitespace-pre-wrap break-words">{message.content}</p>
+              <p className="text-body-lg whitespace-pre-wrap break-words">
+                {message.content}
+              </p>
             ) : (
-              <div className="markdown-content">
-                <ReactMarkdown
-                  components={{
-                    code({ node, inline, className, children, ...props }) {
-                      const match = /language-(\w+)/.exec(className || '');
-                      return !inline && match ? (
-                        <div className="relative group/code">
-                          <SyntaxHighlighter
-                            style={vscDarkPlus}
-                            language={match[1]}
-                            PreTag="div"
-                            className="rounded-lg text-sm"
-                            {...props}
-                          >
-                            {String(children).replace(/\n$/, '')}
-                          </SyntaxHighlighter>
-                          <button
-                            onClick={() => {
-                              navigator.clipboard.writeText(String(children));
-                            }}
-                            className="absolute top-2 right-2 p-2 bg-gray-700 hover:bg-gray-600 rounded-md opacity-0 group-hover/code:opacity-100 transition-opacity"
-                          >
-                            <Copy className="w-3.5 h-3.5 text-gray-300" />
-                          </button>
-                        </div>
-                      ) : (
-                        <code className={className} {...props}>
-                          {children}
-                        </code>
-                      );
-                    },
-                  }}
-                >
-                  {message.content}
-                </ReactMarkdown>
-              </div>
+              <div
+                className="markdown-content text-body-lg"
+                dangerouslySetInnerHTML={{ __html: message.content }}
+              />
             )}
           </div>
 
           {/* Message Footer */}
-          <div className={`flex items-center gap-2 mt-1.5 px-1 ${isUser ? 'justify-end' : 'justify-start'}`}>
+          <div
+            className={`flex items-center gap-2 mt-1.5 px-1 ${
+              isUser ? "justify-end" : "justify-start"
+            }`}
+          >
             <span className="text-xs text-gray-500">
-              {format(new Date(message.timestamp || Date.now()), 'h:mm a')}
+              {format(new Date(message.timestamp || Date.now()), "h:mm a")}
             </span>
 
             {/* Actions */}

@@ -1,8 +1,8 @@
-import React, { useEffect, useRef } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import useChatStore from '../store/chatStore';
-import Message from './Message';
-import TypingIndicator from './TypingIndicator';
+import React, { useEffect, useRef } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import useChatStore from "../store/chatStore";
+import Message from "./Message";
+import TypingIndicator from "./TypingIndicator";
 
 const ChatArea = () => {
   const { getCurrentChat, isTyping } = useChatStore();
@@ -10,7 +10,7 @@ const ChatArea = () => {
   const currentChat = getCurrentChat();
 
   const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
   useEffect(() => {
@@ -24,16 +24,12 @@ const ChatArea = () => {
       <div className="max-w-3xl mx-auto px-4 py-6">
         <AnimatePresence mode="popLayout">
           {currentChat.messages.map((message, index) => (
-            <Message
-              key={message.id}
-              message={message}
-              index={index}
-            />
+            <Message key={message.id} message={message} index={index} />
           ))}
         </AnimatePresence>
 
         {isTyping && <TypingIndicator />}
-        
+
         <div ref={messagesEndRef} />
       </div>
     </div>

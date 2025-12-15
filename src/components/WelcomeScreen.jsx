@@ -1,6 +1,12 @@
-import React from 'react';
-import { MessageSquarePlus, Zap, Code, Lightbulb, FileText } from 'lucide-react';
-import useChatStore from '../store/chatStore';
+import React from "react";
+import {
+  MessageSquarePlus,
+  Zap,
+  Code,
+  Lightbulb,
+  FileText,
+} from "lucide-react";
+import useChatStore from "../store/chatStore";
 
 const WelcomeScreen = () => {
   const { createNewChat } = useChatStore();
@@ -8,34 +14,37 @@ const WelcomeScreen = () => {
   const suggestions = [
     {
       icon: Code,
-      title: 'Write code',
-      description: 'Help me build a React component',
-      prompt: 'Help me create a React component for a todo list with add, delete, and mark complete functionality',
+      title: "Write code",
+      description: "Help me build a React component",
+      prompt:
+        "Help me create a React component for a todo list with add, delete, and mark complete functionality",
     },
     {
       icon: Lightbulb,
-      title: 'Get ideas',
-      description: 'Brainstorm creative solutions',
-      prompt: 'Give me 5 innovative ideas for a mobile app that helps people reduce food waste',
+      title: "Get ideas",
+      description: "Brainstorm creative solutions",
+      prompt:
+        "Give me 5 innovative ideas for a mobile app that helps people reduce food waste",
     },
     {
       icon: FileText,
-      title: 'Summarize text',
-      description: 'Condense long documents',
-      prompt: 'Can you help me summarize long articles and extract key points?',
+      title: "Summarize text",
+      description: "Condense long documents",
+      prompt: "Can you help me summarize long articles and extract key points?",
     },
     {
       icon: Zap,
-      title: 'Solve problems',
-      description: 'Debug code or fix issues',
-      prompt: 'I have a bug in my JavaScript code where the async function is not working properly. Can you help?',
+      title: "Solve problems",
+      description: "Debug code or fix issues",
+      prompt:
+        "I have a bug in my JavaScript code where the async function is not working properly. Can you help?",
     },
   ];
 
   const handleSuggestionClick = (prompt) => {
     const chatId = createNewChat();
     // In a real app, you would trigger sending this message
-    console.log('Starting chat with prompt:', prompt);
+    console.log("Starting chat with prompt:", prompt);
   };
 
   return (

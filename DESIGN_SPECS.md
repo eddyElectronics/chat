@@ -144,40 +144,47 @@ font-family: 'Inter', 'SF Pro Display', -apple-system, system-ui, sans-serif;
 ### 1. Header Component
 
 **Dimensions:**
+
 - Height: 56px
 - Padding: 16px horizontal
 - Border: 1px solid rgba(255, 255, 255, 0.1)
 
 **Elements:**
+
 - Logo: 32px × 32px with gradient background
 - Title: 20px bold, white color
 - Icons: 20px × 20px, gray-300
 - New Chat Button: bg-blue, 36px height, rounded-lg
 
 **States:**
+
 - Hover: Background alpha 0.5
 - Active: Scale 0.95
 
 ### 2. Sidebar Component
 
 **Dimensions:**
+
 - Width: 260px (desktop)
 - Full width overlay (mobile)
 - Padding: 12px
 
 **Search Bar:**
+
 - Height: 40px
 - Border radius: 8px
 - Icon: 16px left-aligned
 - Placeholder: gray-500
 
 **Chat Items:**
+
 - Height: 64px
 - Padding: 12px
 - Border radius: 8px
 - Gap between: 4px
 
 **States:**
+
 - Hover: bg-gray-700/30
 - Active: border-left 2px green
 - Pinned: Pin icon filled
@@ -185,6 +192,7 @@ font-family: 'Inter', 'SF Pro Display', -apple-system, system-ui, sans-serif;
 ### 3. Message Bubble
 
 **User Message:**
+
 - Background: Gradient green (#10A37F to #0D8C6F)
 - Alignment: Right
 - Max width: 85%
@@ -194,6 +202,7 @@ font-family: 'Inter', 'SF Pro Display', -apple-system, system-ui, sans-serif;
 - Text: white, 16px
 
 **AI Message:**
+
 - Background: Glass effect (rgba(52, 53, 65, 0.5))
 - Backdrop blur: 10px
 - Alignment: Left
@@ -204,6 +213,7 @@ font-family: 'Inter', 'SF Pro Display', -apple-system, system-ui, sans-serif;
 - Text: gray-100, 16px
 
 **Avatar:**
+
 - Size: 32px × 32px
 - Border radius: Full circle
 - User: Green gradient
@@ -211,12 +221,14 @@ font-family: 'Inter', 'SF Pro Display', -apple-system, system-ui, sans-serif;
 - Icon: 16px white
 
 **Timestamp:**
+
 - Font size: 12px
 - Color: gray-500
 - Position: Below bubble
 - Format: "h:mm a"
 
 **Actions (on hover):**
+
 - Copy button: 14px icon
 - Regenerate button: 14px icon (AI only)
 - Delete button: 14px icon (red)
@@ -227,6 +239,7 @@ font-family: 'Inter', 'SF Pro Display', -apple-system, system-ui, sans-serif;
 ### 4. Code Blocks
 
 **Container:**
+
 - Background: rgba(0, 0, 0, 0.5)
 - Border radius: 8px
 - Padding: 16px
@@ -234,12 +247,14 @@ font-family: 'Inter', 'SF Pro Display', -apple-system, system-ui, sans-serif;
 - Overflow: auto
 
 **Syntax Highlighting:**
+
 - Theme: VS Code Dark Plus
 - Font: Fira Code, Monaco, monospace
 - Font size: 14px
 - Line height: 1.6
 
 **Copy Button:**
+
 - Position: Absolute top-right
 - Background: gray-700
 - Size: 32px × 32px
@@ -250,6 +265,7 @@ font-family: 'Inter', 'SF Pro Display', -apple-system, system-ui, sans-serif;
 ### 5. Input Bar
 
 **Container:**
+
 - Min height: 56px
 - Max height: 200px (4 lines)
 - Padding: 12px
@@ -258,6 +274,7 @@ font-family: 'Inter', 'SF Pro Display', -apple-system, system-ui, sans-serif;
 - Glass effect background
 
 **Textarea:**
+
 - Background: Transparent
 - Resize: None (auto-grow)
 - Font size: 16px
@@ -267,12 +284,14 @@ font-family: 'Inter', 'SF Pro Display', -apple-system, system-ui, sans-serif;
 - Placeholder: gray-500
 
 **Action Buttons:**
+
 - Size: 40px × 40px
 - Icon: 20px
 - Border radius: 8px
 - Hover: bg-gray-700/50
 
 **Send Button:**
+
 - Background: Blue gradient
 - Size: 42px × 42px
 - Icon: 20px white
@@ -285,11 +304,13 @@ font-family: 'Inter', 'SF Pro Display', -apple-system, system-ui, sans-serif;
 ### 6. Typing Indicator
 
 **Container:**
+
 - Same as AI message bubble
 - Glass effect background
 - Padding: 16px 20px
 
 **Dots:**
+
 - Size: 8px × 8px
 - Color: gray-400
 - Gap: 6px
@@ -297,21 +318,30 @@ font-family: 'Inter', 'SF Pro Display', -apple-system, system-ui, sans-serif;
 - Delay: 0.16s, 0.32s stagger
 
 **Animation:**
+
 ```css
 @keyframes bounce {
-  0%, 80%, 100% { transform: scale(0); }
-  40% { transform: scale(1); }
+  0%,
+  80%,
+  100% {
+    transform: scale(0);
+  }
+  40% {
+    transform: scale(1);
+  }
 }
 ```
 
 ### 7. Welcome Screen
 
 **Layout:**
+
 - Centered vertically and horizontally
 - Max width: 800px
 - Padding: 24px
 
 **Hero Icon:**
+
 - Size: 80px × 80px
 - Background: Gradient green to blue
 - Border radius: 24px
@@ -319,17 +349,20 @@ font-family: 'Inter', 'SF Pro Display', -apple-system, system-ui, sans-serif;
 - Icon: 40px white
 
 **Heading:**
+
 - Font size: 32px
 - Font weight: 700
 - Color: white
 - Margin bottom: 12px
 
 **Subheading:**
+
 - Font size: 16px
 - Color: gray-400
 - Margin bottom: 48px
 
 **Suggestion Cards:**
+
 - Grid: 2 columns (1 on mobile)
 - Gap: 16px
 - Background: Glass effect
@@ -340,6 +373,7 @@ font-family: 'Inter', 'SF Pro Display', -apple-system, system-ui, sans-serif;
 - Transition: 0.3s
 
 **Card Content:**
+
 - Icon: 40px × 40px container
 - Icon size: 20px accent color
 - Title: 16px semibold white
@@ -393,7 +427,7 @@ border: 1px solid gray-700;
 transition: border-color 0.2s;
 
 &:focus {
-  border-color: #10A37F;
+  border-color: #10a37f;
   box-shadow: 0 0 0 3px rgba(16, 163, 127, 0.1);
 }
 ```
@@ -418,9 +452,15 @@ transition: transform 0.3s ease;
   animation: bounce 1.4s infinite ease-in-out;
 }
 
-.dot:nth-child(1) { animation-delay: -0.32s; }
-.dot:nth-child(2) { animation-delay: -0.16s; }
-.dot:nth-child(3) { animation-delay: 0s; }
+.dot:nth-child(1) {
+  animation-delay: -0.32s;
+}
+.dot:nth-child(2) {
+  animation-delay: -0.16s;
+}
+.dot:nth-child(3) {
+  animation-delay: 0s;
+}
 ```
 
 ---
@@ -438,7 +478,7 @@ transition: transform 0.3s ease;
   .container {
     padding: 24px;
   }
-  
+
   .sidebar {
     display: block;
     position: relative;
@@ -450,7 +490,7 @@ transition: transform 0.3s ease;
   .message-bubble {
     max-width: 70%;
   }
-  
+
   .chat-area {
     max-width: 900px;
   }
@@ -469,26 +509,31 @@ transition: transform 0.3s ease;
 ## 🎭 Interaction States
 
 ### Hover States
+
 - Buttons: bg-opacity +20%, scale 1.05
 - Messages: Show action buttons
 - Chat items: bg-gray-700/30
 - Code blocks: Show copy button
 
 ### Active States
+
 - Buttons: scale 0.95
 - Chat items: Border left accent
 - Input: Border accent glow
 
 ### Focus States
+
 - Input: Border accent + shadow
 - Buttons: Outline accent 2px
 
 ### Disabled States
+
 - Opacity: 0.5
 - Cursor: not-allowed
 - No hover effects
 
 ### Loading States
+
 - Typing indicator animation
 - Send button disabled
 - Skeleton placeholders (optional)
@@ -498,6 +543,7 @@ transition: transform 0.3s ease;
 ## 🔧 Accessibility
 
 ### Keyboard Navigation
+
 - Tab: Navigate through interactive elements
 - Enter: Send message
 - Shift + Enter: New line in textarea
@@ -505,6 +551,7 @@ transition: transform 0.3s ease;
 - Arrow keys: Navigate chat history
 
 ### ARIA Labels
+
 ```html
 <button aria-label="New chat">
 <button aria-label="Send message">
@@ -513,11 +560,13 @@ transition: transform 0.3s ease;
 ```
 
 ### Focus Indicators
+
 - Visible outline: 2px solid accent
 - Offset: 2px
 - Never remove focus styles
 
 ### Color Contrast
+
 - All text meets WCAG AA (4.5:1 for normal, 3:1 for large)
 - Interactive elements distinguishable
 - Accent colors readable on dark backgrounds
@@ -540,9 +589,7 @@ transition: transform 0.3s ease;
 
 ```css
 .neumorphic {
-  box-shadow: 
-    8px 8px 16px rgba(0, 0, 0, 0.4),
-    -8px -8px 16px rgba(255, 255, 255, 0.02);
+  box-shadow: 8px 8px 16px rgba(0, 0, 0, 0.4), -8px -8px 16px rgba(255, 255, 255, 0.02);
 }
 ```
 
@@ -551,6 +598,7 @@ transition: transform 0.3s ease;
 ## 📏 Sizing Reference
 
 ### iPhone 14 (Mobile)
+
 - Screen: 390px × 844px
 - Safe area top: 47px
 - Safe area bottom: 34px
@@ -558,6 +606,7 @@ transition: transform 0.3s ease;
 - Input: 80px (collapsed)
 
 ### Desktop
+
 - Min width: 1024px
 - Max content width: 1200px
 - Sidebar: 260px fixed

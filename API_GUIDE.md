@@ -5,6 +5,7 @@
 ### 1. OpenAI GPT-4 / GPT-3.5
 
 #### Get API Key
+
 1. Visit https://platform.openai.com/api-keys
 2. Create new secret key
 3. Copy key (starts with `sk-`)
@@ -14,14 +15,14 @@
 ```javascript
 // src/utils/openai.js
 export const sendToOpenAI = async (messages) => {
-  const response = await fetch('https://api.openai.com/v1/chat/completions', {
-    method: 'POST',
+  const response = await fetch("https://api.openai.com/v1/chat/completions", {
+    method: "POST",
     headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${import.meta.env.VITE_OPENAI_API_KEY}`,
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${import.meta.env.VITE_OPENAI_API_KEY}`,
     },
     body: JSON.stringify({
-      model: 'gpt-4', // or 'gpt-3.5-turbo' for faster/cheaper
+      model: "gpt-4", // or 'gpt-3.5-turbo' for faster/cheaper
       messages: messages,
       temperature: 0.7,
       max_tokens: 2000,
@@ -37,14 +38,14 @@ export const sendToOpenAI = async (messages) => {
 
 ```javascript
 export const streamOpenAI = async (messages, onChunk) => {
-  const response = await fetch('https://api.openai.com/v1/chat/completions', {
-    method: 'POST',
+  const response = await fetch("https://api.openai.com/v1/chat/completions", {
+    method: "POST",
     headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${import.meta.env.VITE_OPENAI_API_KEY}`,
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${import.meta.env.VITE_OPENAI_API_KEY}`,
     },
     body: JSON.stringify({
-      model: 'gpt-4',
+      model: "gpt-4",
       messages: messages,
       temperature: 0.7,
       stream: true,
@@ -59,12 +60,12 @@ export const streamOpenAI = async (messages, onChunk) => {
     if (done) break;
 
     const chunk = decoder.decode(value);
-    const lines = chunk.split('\n').filter(line => line.trim());
+    const lines = chunk.split("\n").filter((line) => line.trim());
 
     for (const line of lines) {
-      if (line.startsWith('data: ')) {
+      if (line.startsWith("data: ")) {
         const data = line.slice(6);
-        if (data === '[DONE]') continue;
+        if (data === "[DONE]") continue;
 
         try {
           const parsed = JSON.parse(data);
@@ -84,6 +85,7 @@ export const streamOpenAI = async (messages, onChunk) => {
 ### 2. Anthropic Claude
 
 #### Get API Key
+
 1. Visit https://console.anthropic.com/
 2. Generate API key
 3. Copy key (starts with `sk-ant-`)
@@ -93,15 +95,15 @@ export const streamOpenAI = async (messages, onChunk) => {
 ```javascript
 // src/utils/claude.js
 export const sendToClaude = async (messages) => {
-  const response = await fetch('https://api.anthropic.com/v1/messages', {
-    method: 'POST',
+  const response = await fetch("https://api.anthropic.com/v1/messages", {
+    method: "POST",
     headers: {
-      'Content-Type': 'application/json',
-      'x-api-key': import.meta.env.VITE_ANTHROPIC_API_KEY,
-      'anthropic-version': '2023-06-01',
+      "Content-Type": "application/json",
+      "x-api-key": import.meta.env.VITE_ANTHROPIC_API_KEY,
+      "anthropic-version": "2023-06-01",
     },
     body: JSON.stringify({
-      model: 'claude-3-opus-20240229',
+      model: "claude-3-opus-20240229",
       max_tokens: 2000,
       messages: messages,
     }),
@@ -117,6 +119,7 @@ export const sendToClaude = async (messages) => {
 ### 3. Google Gemini
 
 #### Get API Key
+
 1. Visit https://makersuite.google.com/app/apikey
 2. Create API key
 3. Copy key
@@ -132,14 +135,16 @@ export const sendToGemini = async (messages) => {
   const response = await fetch(
     `https://generativelanguage.googleapis.com/v1/models/gemini-pro:generateContent?key=${apiKey}`,
     {
-      method: 'POST',
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        contents: [{
-          parts: [{ text: lastMessage }]
-        }],
+        contents: [
+          {
+            parts: [{ text: lastMessage }],
+          },
+        ],
       }),
     }
   );
@@ -157,25 +162,25 @@ export const sendToGemini = async (messages) => {
 
 ```javascript
 // backend/server.js
-const express = require('express');
-const cors = require('cors');
-const { OpenAI } = require('openai');
+const express = require("express");
+const cors = require("cors");
+const { OpenAI } = require("openai");
 
 const app = express();
 app.use(cors());
-app.use(express.json({ limit: '10mb' }));
+app.use(express.json({ limit: "10mb" }));
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
 
 // Standard endpoint
-app.post('/api/chat', async (req, res) => {
+app.post("/api/chat", async (req, res) => {
   try {
     const { messages } = req.body;
 
     const completion = await openai.chat.completions.create({
-      model: 'gpt-4',
+      model: "gpt-4",
       messages: messages,
     });
 
@@ -183,37 +188,37 @@ app.post('/api/chat', async (req, res) => {
       message: completion.choices[0].message.content,
     });
   } catch (error) {
-    console.error('Error:', error);
+    console.error("Error:", error);
     res.status(500).json({ error: error.message });
   }
 });
 
 // Streaming endpoint
-app.post('/api/chat/stream', async (req, res) => {
+app.post("/api/chat/stream", async (req, res) => {
   try {
     const { messages } = req.body;
 
-    res.setHeader('Content-Type', 'text/event-stream');
-    res.setHeader('Cache-Control', 'no-cache');
-    res.setHeader('Connection', 'keep-alive');
+    res.setHeader("Content-Type", "text/event-stream");
+    res.setHeader("Cache-Control", "no-cache");
+    res.setHeader("Connection", "keep-alive");
 
     const stream = await openai.chat.completions.create({
-      model: 'gpt-4',
+      model: "gpt-4",
       messages: messages,
       stream: true,
     });
 
     for await (const chunk of stream) {
-      const content = chunk.choices[0]?.delta?.content || '';
+      const content = chunk.choices[0]?.delta?.content || "";
       if (content) {
         res.write(`data: ${JSON.stringify({ content })}\n\n`);
       }
     }
 
-    res.write('data: [DONE]\n\n');
+    res.write("data: [DONE]\n\n");
     res.end();
   } catch (error) {
-    console.error('Error:', error);
+    console.error("Error:", error);
     res.status(500).json({ error: error.message });
   }
 });
@@ -230,9 +235,9 @@ app.listen(PORT, () => {
 // src/utils/api.js
 export const sendToBackend = async (messages) => {
   const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/chat`, {
-    method: 'POST',
+    method: "POST",
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
     },
     body: JSON.stringify({ messages }),
   });
@@ -245,9 +250,9 @@ export const streamFromBackend = async (messages, onChunk) => {
   const response = await fetch(
     `${import.meta.env.VITE_BACKEND_URL}/api/chat/stream`,
     {
-      method: 'POST',
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({ messages }),
     }
@@ -261,12 +266,12 @@ export const streamFromBackend = async (messages, onChunk) => {
     if (done) break;
 
     const chunk = decoder.decode(value);
-    const lines = chunk.split('\n').filter(line => line.trim());
+    const lines = chunk.split("\n").filter((line) => line.trim());
 
     for (const line of lines) {
-      if (line.startsWith('data: ')) {
+      if (line.startsWith("data: ")) {
         const data = line.slice(6);
-        if (data === '[DONE]') continue;
+        if (data === "[DONE]") continue;
 
         try {
           const parsed = JSON.parse(data);
@@ -288,17 +293,17 @@ export const streamFromBackend = async (messages, onChunk) => {
 
 ```javascript
 // backend/socket-server.js
-const express = require('express');
-const http = require('http');
-const socketIO = require('socket.io');
-const { OpenAI } = require('openai');
+const express = require("express");
+const http = require("http");
+const socketIO = require("socket.io");
+const { OpenAI } = require("openai");
 
 const app = express();
 const server = http.createServer(app);
 const io = socketIO(server, {
   cors: {
-    origin: 'http://localhost:3000',
-    methods: ['GET', 'POST'],
+    origin: "http://localhost:3000",
+    methods: ["GET", "POST"],
   },
 });
 
@@ -306,39 +311,39 @@ const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
 
-io.on('connection', (socket) => {
-  console.log('Client connected:', socket.id);
+io.on("connection", (socket) => {
+  console.log("Client connected:", socket.id);
 
-  socket.on('chat', async (data) => {
+  socket.on("chat", async (data) => {
     try {
       const { messages } = data;
 
       const stream = await openai.chat.completions.create({
-        model: 'gpt-4',
+        model: "gpt-4",
         messages: messages,
         stream: true,
       });
 
       for await (const chunk of stream) {
-        const content = chunk.choices[0]?.delta?.content || '';
+        const content = chunk.choices[0]?.delta?.content || "";
         if (content) {
-          socket.emit('chunk', { content });
+          socket.emit("chunk", { content });
         }
       }
 
-      socket.emit('done');
+      socket.emit("done");
     } catch (error) {
-      socket.emit('error', { error: error.message });
+      socket.emit("error", { error: error.message });
     }
   });
 
-  socket.on('disconnect', () => {
-    console.log('Client disconnected:', socket.id);
+  socket.on("disconnect", () => {
+    console.log("Client disconnected:", socket.id);
   });
 });
 
 server.listen(8000, () => {
-  console.log('WebSocket server running on port 8000');
+  console.log("WebSocket server running on port 8000");
 });
 ```
 
@@ -346,13 +351,13 @@ server.listen(8000, () => {
 
 ```javascript
 // src/utils/socket.js
-import { io } from 'socket.io-client';
+import { io } from "socket.io-client";
 
 let socket = null;
 
 export const connectSocket = () => {
   if (!socket) {
-    socket = io(import.meta.env.VITE_WS_URL || 'http://localhost:8000');
+    socket = io(import.meta.env.VITE_WS_URL || "http://localhost:8000");
   }
   return socket;
 };
@@ -360,17 +365,17 @@ export const connectSocket = () => {
 export const sendMessage = (messages, onChunk, onComplete, onError) => {
   const socket = connectSocket();
 
-  socket.emit('chat', { messages });
+  socket.emit("chat", { messages });
 
-  socket.on('chunk', (data) => {
+  socket.on("chunk", (data) => {
     onChunk(data.content);
   });
 
-  socket.on('done', () => {
+  socket.on("done", () => {
     onComplete();
   });
 
-  socket.on('error', (data) => {
+  socket.on("error", (data) => {
     onError(data.error);
   });
 };
@@ -390,17 +395,23 @@ export const disconnectSocket = () => {
 ### Update `src/components/InputBar.jsx`
 
 ```javascript
-import { useState, useRef } from 'react';
-import useChatStore from '../store/chatStore';
+import { useState, useRef } from "react";
+import useChatStore from "../store/chatStore";
 
 // Choose your preferred method:
-import { streamOpenAI } from '../utils/openai';
+import { streamOpenAI } from "../utils/openai";
 // import { streamFromBackend } from '../utils/api';
 // import { sendMessage } from '../utils/socket';
 
 const InputBar = () => {
-  const [input, setInput] = useState('');
-  const { currentChatId, addMessage, updateMessage, setIsTyping, getCurrentChat } = useChatStore();
+  const [input, setInput] = useState("");
+  const {
+    currentChatId,
+    addMessage,
+    updateMessage,
+    setIsTyping,
+    getCurrentChat,
+  } = useChatStore();
   const streamingMessageIdRef = useRef(null);
 
   const handleSubmit = async (e) => {
@@ -408,22 +419,22 @@ const InputBar = () => {
     if (!input.trim() || !currentChatId) return;
 
     const currentChat = getCurrentChat();
-    
+
     // Add user message
     const userMessage = {
-      role: 'user',
+      role: "user",
       content: input.trim(),
       timestamp: new Date().toISOString(),
     };
     addMessage(currentChatId, userMessage);
-    setInput('');
+    setInput("");
     setIsTyping(true);
 
     // Create empty AI message for streaming
     const aiMessage = {
       id: Date.now().toString(),
-      role: 'assistant',
-      content: '',
+      role: "assistant",
+      content: "",
       timestamp: new Date().toISOString(),
     };
     addMessage(currentChatId, aiMessage);
@@ -431,28 +442,24 @@ const InputBar = () => {
 
     try {
       // Prepare messages array
-      const allMessages = [
-        ...currentChat.messages,
-        userMessage,
-      ].map(m => ({
+      const allMessages = [...currentChat.messages, userMessage].map((m) => ({
         role: m.role,
         content: m.content,
       }));
 
       // Stream response
-      let fullResponse = '';
-      
+      let fullResponse = "";
+
       await streamOpenAI(allMessages, (chunk) => {
         fullResponse += chunk;
         updateMessage(currentChatId, streamingMessageIdRef.current, {
           content: fullResponse,
         });
       });
-
     } catch (error) {
-      console.error('Error:', error);
+      console.error("Error:", error);
       updateMessage(currentChatId, streamingMessageIdRef.current, {
-        content: 'Sorry, I encountered an error. Please try again.',
+        content: "Sorry, I encountered an error. Please try again.",
       });
     } finally {
       setIsTyping(false);
@@ -494,31 +501,30 @@ VITE_ENABLE_STREAMING=true
 
 ```javascript
 // src/utils/test-api.js
-import { streamOpenAI } from './openai';
+import { streamOpenAI } from "./openai";
 
 export const testAPI = async () => {
-  const testMessages = [
-    { role: 'user', content: 'Say hello!' }
-  ];
+  const testMessages = [{ role: "user", content: "Say hello!" }];
 
   try {
-    let response = '';
+    let response = "";
     await streamOpenAI(testMessages, (chunk) => {
       response += chunk;
-      console.log('Chunk:', chunk);
+      console.log("Chunk:", chunk);
     });
-    console.log('Full response:', response);
+    console.log("Full response:", response);
     return true;
   } catch (error) {
-    console.error('API test failed:', error);
+    console.error("API test failed:", error);
     return false;
   }
 };
 ```
 
 Run in browser console:
+
 ```javascript
-import { testAPI } from './utils/test-api';
+import { testAPI } from "./utils/test-api";
 testAPI();
 ```
 
@@ -538,13 +544,13 @@ class RateLimiter {
   async throttle() {
     const now = Date.now();
     this.requests = this.requests.filter(
-      time => now - time < this.timeWindow
+      (time) => now - time < this.timeWindow
     );
 
     if (this.requests.length >= this.maxRequests) {
       const oldestRequest = this.requests[0];
       const waitTime = this.timeWindow - (now - oldestRequest);
-      await new Promise(resolve => setTimeout(resolve, waitTime));
+      await new Promise((resolve) => setTimeout(resolve, waitTime));
     }
 
     this.requests.push(now);
@@ -555,6 +561,7 @@ export const rateLimiter = new RateLimiter(50, 60000); // 50 req/min
 ```
 
 Usage:
+
 ```javascript
 await rateLimiter.throttle();
 const response = await sendToOpenAI(messages);
@@ -567,9 +574,9 @@ const response = await sendToOpenAI(messages);
 ```javascript
 // src/utils/cost-tracker.js
 const COSTS = {
-  'gpt-4': { input: 0.03, output: 0.06 }, // per 1K tokens
-  'gpt-3.5-turbo': { input: 0.0015, output: 0.002 },
-  'claude-3-opus': { input: 0.015, output: 0.075 },
+  "gpt-4": { input: 0.03, output: 0.06 }, // per 1K tokens
+  "gpt-3.5-turbo": { input: 0.0015, output: 0.002 },
+  "claude-3-opus": { input: 0.015, output: 0.075 },
 };
 
 export const estimateCost = (model, inputTokens, outputTokens) => {
@@ -578,7 +585,7 @@ export const estimateCost = (model, inputTokens, outputTokens) => {
 
   const inputCost = (inputTokens / 1000) * costs.input;
   const outputCost = (outputTokens / 1000) * costs.output;
-  
+
   return inputCost + outputCost;
 };
 

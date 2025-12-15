@@ -1,18 +1,19 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { Send } from 'lucide-react';
-import useChatStore from '../store/chatStore';
-import { sendChatMessage, simulateAIResponse } from '../utils/api';
+import React, { useState, useRef, useEffect } from "react";
+import { Send } from "lucide-react";
+import useChatStore from "../store/chatStore";
+import { sendChatMessage, simulateAIResponse } from "../utils/api";
 
 const InputBar = () => {
-  const [input, setInput] = useState('');
+  const [input, setInput] = useState("");
   const textareaRef = useRef(null);
   const { currentChatId, addMessage, setIsTyping } = useChatStore();
 
   // Auto-resize textarea
   useEffect(() => {
     if (textareaRef.current) {
-      textareaRef.current.style.height = 'auto';
-      textareaRef.current.style.height = Math.min(textareaRef.current.scrollHeight, 120) + 'px';
+      textareaRef.current.style.height = "auto";
+      textareaRef.current.style.height =
+        Math.min(textareaRef.current.scrollHeight, 120) + "px";
     }
   }, [input]);
 
@@ -21,56 +22,57 @@ const InputBar = () => {
     if (!input.trim() || !currentChatId) return;
 
     const userMessage = {
-      role: 'user',
+      role: "user",
       content: input.trim(),
       timestamp: new Date().toISOString(),
     };
 
     // Add user message
     addMessage(currentChatId, userMessage);
-    setInput('');
+    setInput("");
 
     // Get AI response from API
     setIsTyping(true);
-    
+
     try {
       // Try real API first
       const response = await sendChatMessage(userMessage.content);
-      
+
       const aiMessage = {
-        role: 'assistant',
+        role: "assistant",
         content: response,
         timestamp: new Date().toISOString(),
       };
       addMessage(currentChatId, aiMessage);
       setIsTyping(false);
     } catch (error) {
-      console.error('Error getting AI response:', error);
-      
+      console.error("Error getting AI response:", error);
+
       // Fallback to simulated response
       try {
         const fallbackResponse = await simulateAIResponse(userMessage.content);
         const aiMessage = {
-          role: 'assistant',
+          role: "assistant",
           content: fallbackResponse,
           timestamp: new Date().toISOString(),
         };
         addMessage(currentChatId, aiMessage);
       } catch (fallbackError) {
         const errorMessage = {
-          role: 'assistant',
-          content: '❌ Sorry, I encountered an error connecting to the chat API. Please check that the server is running at http://localhost:5678/webhook/chat',
+          role: "assistant",
+          content:
+            "❌ Sorry, I encountered an error connecting to the chat API. Please check that the server is running at http://localhost:5678/webhook/chat",
           timestamp: new Date().toISOString(),
         };
         addMessage(currentChatId, errorMessage);
       }
-      
+
       setIsTyping(false);
     }
   };
 
   const handleKeyDown = (e) => {
-    if (e.key === 'Enter' && !e.shiftKey) {
+    if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault();
       handleSubmit(e);
     }
@@ -98,9 +100,10 @@ const InputBar = () => {
               disabled={!input.trim()}
               className={`
                 p-2.5 rounded-lg transition-all flex-shrink-0 self-end
-                ${input.trim()
-                  ? 'bg-primary-blue hover:bg-primary-blueHover hover:scale-110 active:scale-95 shadow-lg shadow-primary-blue/30'
-                  : 'bg-gray-700 cursor-not-allowed opacity-50'
+                ${
+                  input.trim()
+                    ? "bg-primary-blue hover:bg-primary-blueHover hover:scale-110 active:scale-95 shadow-lg shadow-primary-blue/30"
+                    : "bg-gray-700 cursor-not-allowed opacity-50"
                 }
               `}
               title="Send message"

@@ -7,6 +7,7 @@ A sleek, modern chat application inspired by ChatGPT's interface, built with Rea
 ## ✨ Features
 
 ### UI/UX
+
 - 🎨 **Modern Dark Theme** - Beautiful #0F0F23 background with subtle gradients
 - 💎 **Glassmorphism Effects** - Frosted glass chat bubbles with backdrop blur
 - ✨ **Smooth Animations** - Fade-in messages, typing indicators, and hover effects
@@ -14,6 +15,7 @@ A sleek, modern chat application inspired by ChatGPT's interface, built with Rea
 - 🎯 **ChatGPT-Inspired Design** - Professional polish matching official ChatGPT app
 
 ### Functionality
+
 - 💬 **Real-time Chat** - Simulated streaming responses with typing indicators
 - 📝 **Markdown Support** - Render formatted text, code blocks, lists, and more
 - 🎨 **Syntax Highlighting** - Beautiful code syntax highlighting with copy buttons
@@ -26,11 +28,13 @@ A sleek, modern chat application inspired by ChatGPT's interface, built with Rea
 - 😊 **Emoji Picker** - Add emojis to messages (UI ready)
 
 ### Desktop Features
+
 - 📂 **Collapsible Sidebar** - Chat history with search and organization
 - 🖱️ **Hover Actions** - Copy, regenerate, and delete message options
 - ⌨️ **Keyboard Shortcuts** - Enter to send, Shift+Enter for new line
 
 ### Mobile Features
+
 - 👆 **Touch Optimized** - Swipe gestures and touch-friendly buttons
 - 📱 **Responsive Layout** - Optimized for iPhone 14 and other mobile devices
 - 🎯 **Mobile-First** - Hamburger menu, collapsible sidebar
@@ -38,25 +42,29 @@ A sleek, modern chat application inspired by ChatGPT's interface, built with Rea
 ## 🚀 Quick Start
 
 ### Prerequisites
+
 - Node.js 18+ installed
 - npm or yarn package manager
 
 ### Installation
 
 1. **Install Dependencies**
+
 ```bash
 npm install
 ```
 
 2. **Start Development Server**
+
 ```bash
 npm run dev
 ```
 
 3. **Open in Browser**
-Navigate to `http://localhost:3000`
+   Navigate to `http://localhost:3000`
 
 ### Build for Production
+
 ```bash
 npm run build
 npm run preview
@@ -91,6 +99,7 @@ chat/
 ## 🎨 Design System
 
 ### Colors
+
 ```css
 Primary Background: #0F0F23
 Surface: #202123
@@ -100,11 +109,13 @@ Accent Blue: #3099FF
 ```
 
 ### Typography
+
 - **Font Family**: Inter, SF Pro Display
 - **Headings**: 24-32px, Bold (700)
 - **Body Text**: 14-16px, Regular (400)
 
 ### Components
+
 - **Message Bubbles**: Rounded corners (16px), subtle shadows
 - **Glass Effects**: backdrop-blur(10px), semi-transparent backgrounds
 - **Animations**: 0.3s ease transitions, fade-in effects
@@ -112,12 +123,15 @@ Accent Blue: #3099FF
 ## 🔧 Configuration
 
 ### State Management
+
 Uses Zustand for lightweight state management with localStorage persistence.
 
 ### Styling
+
 Tailwind CSS with custom configuration for colors, animations, and utilities.
 
 ### Icons
+
 Lucide React for consistent, customizable icons.
 
 ## 🚀 Advanced Features (Implementation Ready)
@@ -129,17 +143,17 @@ Replace the simulated API with actual AI:
 ```javascript
 // In src/utils/api.js
 export const getAIResponse = async (messages) => {
-  const response = await fetch('https://api.openai.com/v1/chat/completions', {
-    method: 'POST',
+  const response = await fetch("https://api.openai.com/v1/chat/completions", {
+    method: "POST",
     headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${process.env.VITE_OPENAI_API_KEY}`
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${process.env.VITE_OPENAI_API_KEY}`,
     },
     body: JSON.stringify({
-      model: 'gpt-4',
+      model: "gpt-4",
       messages: messages,
       stream: true,
-    })
+    }),
   });
   return response;
 };
@@ -151,7 +165,7 @@ Implement real-time streaming:
 
 ```javascript
 // WebSocket streaming
-const ws = new WebSocket('wss://your-backend.com/chat');
+const ws = new WebSocket("wss://your-backend.com/chat");
 ws.onmessage = (event) => {
   const chunk = JSON.parse(event.data);
   updateMessageContent(chunk);
@@ -161,6 +175,7 @@ ws.onmessage = (event) => {
 ### 3. Authentication
 
 Add user authentication:
+
 - Multi-factor authentication (MFA)
 - Session management
 - User profiles
@@ -169,6 +184,7 @@ Add user authentication:
 ### 4. File Upload
 
 Enable file attachments:
+
 - PDF document analysis
 - Image understanding
 - Code file review
@@ -177,11 +193,13 @@ Enable file attachments:
 ### 5. Voice Input
 
 Integrate speech recognition:
+
 - Web Speech API
 - Real-time transcription
 - Voice commands
 
 ### 6. Advanced Features
+
 - Slash commands (/search, /summarize)
 - Context memory toggle
 - Export conversations
@@ -233,6 +251,7 @@ MIT License - feel free to use this project for personal or commercial purposes.
 ## 📧 Support
 
 For issues, questions, or suggestions:
+
 - Open an issue on GitHub
 - Contact: your-email@example.com
 

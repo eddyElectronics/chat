@@ -93,7 +93,7 @@ Specifications:
 ├─ Display: Flex, space-between, align-center
 │
 ├─ Left Section:
-│  ├─ Hamburger Button (Mobile): 
+│  ├─ Hamburger Button (Mobile):
 │  │  └─ Size: 40px × 40px
 │  │     Icon: 20px, white
 │  │     Hover: bg-gray-700/50
@@ -104,7 +104,7 @@ Specifications:
 │     └─ Title: "ChatAI", 20px bold, white, margin-left: 8px
 │
 └─ Right Section:
-   ├─ Search Button: 
+   ├─ Search Button:
    │  └─ Size: 40px × 40px, icon 20px
    │     Hidden on mobile
    │
@@ -595,13 +595,13 @@ Specifications:
 /* Input/Textarea */
 .input:focus {
   outline: none;
-  border-color: #10A37F;
+  border-color: #10a37f;
   box-shadow: 0 0 0 3px rgba(16, 163, 127, 0.1);
 }
 
 /* Buttons */
 .button:focus-visible {
-  outline: 2px solid #10A37F;
+  outline: 2px solid #10a37f;
   outline-offset: 2px;
 }
 ```
@@ -612,7 +612,7 @@ Specifications:
 /* Chat Item */
 .chat-item.active {
   background: rgba(16, 163, 127, 0.1);
-  border-left: 2px solid #10A37F;
+  border-left: 2px solid #10a37f;
 }
 
 /* Send Button */
@@ -628,7 +628,9 @@ Specifications:
 ```css
 /* Typing Indicator */
 @keyframes bounce {
-  0%, 80%, 100% {
+  0%,
+  80%,
+  100% {
     transform: scale(0);
   }
   40% {
@@ -640,9 +642,15 @@ Specifications:
   animation: bounce 1.4s infinite ease-in-out;
 }
 
-.typing-dot:nth-child(1) { animation-delay: -0.32s; }
-.typing-dot:nth-child(2) { animation-delay: -0.16s; }
-.typing-dot:nth-child(3) { animation-delay: 0s; }
+.typing-dot:nth-child(1) {
+  animation-delay: -0.32s;
+}
+.typing-dot:nth-child(2) {
+  animation-delay: -0.16s;
+}
+.typing-dot:nth-child(3) {
+  animation-delay: 0s;
+}
 ```
 
 ---
@@ -689,24 +697,24 @@ Specifications:
 
 ```css
 /* Dark Theme */
---primary-bg: #0F0F23;
+--primary-bg: #0f0f23;
 --surface: #202123;
 --surface-light: #343541;
 --surface-lighter: #444654;
 
 /* Accent Colors */
---accent-green: #10A37F;
---accent-green-hover: #0D8C6F;
---accent-blue: #3099FF;
---accent-blue-hover: #2680E0;
---accent-red: #EF4444;
---accent-purple: #A855F7;
+--accent-green: #10a37f;
+--accent-green-hover: #0d8c6f;
+--accent-blue: #3099ff;
+--accent-blue-hover: #2680e0;
+--accent-red: #ef4444;
+--accent-purple: #a855f7;
 
 /* Text Colors */
---text-primary: #FFFFFF;
---text-secondary: #E5E5E5;
---text-muted: #B4B4B4;
---text-disabled: #6B6C7B;
+--text-primary: #ffffff;
+--text-secondary: #e5e5e5;
+--text-muted: #b4b4b4;
+--text-disabled: #6b6c7b;
 
 /* UI Colors */
 --border: rgba(255, 255, 255, 0.1);
@@ -718,14 +726,14 @@ Specifications:
 
 ```css
 /* Message Bubbles */
---gradient-user: linear-gradient(135deg, #10A37F 0%, #0D8C6F 100%);
---gradient-ai: linear-gradient(135deg, #3099FF 0%, #2680E0 100%);
+--gradient-user: linear-gradient(135deg, #10a37f 0%, #0d8c6f 100%);
+--gradient-ai: linear-gradient(135deg, #3099ff 0%, #2680e0 100%);
 
 /* Background */
 --gradient-surface: linear-gradient(135deg, #343541 0%, #202123 100%);
 
 /* Logo */
---gradient-logo: linear-gradient(135deg, #10A37F 0%, #3099FF 100%);
+--gradient-logo: linear-gradient(135deg, #10a37f 0%, #3099ff 100%);
 ```
 
 ### Shadows
@@ -799,4 +807,4 @@ Specifications:
 
 **This visual reference ensures pixel-perfect implementation of the ChatAI UI!**
 
-*Use these specifications when customizing or extending the application.*
+_Use these specifications when customizing or extending the application._

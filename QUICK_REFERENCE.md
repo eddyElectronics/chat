@@ -67,20 +67,25 @@ npm audit fix           # Fix security issues
 ## 🎨 Key Files to Edit
 
 ### Change Colors
+
 📁 `tailwind.config.js` → `theme.extend.colors`
 
 ### Change Fonts
+
 📁 `index.html` → Google Fonts link
 📁 `tailwind.config.js` → `theme.extend.fontFamily`
 
 ### Add New Component
+
 📁 `src/components/YourComponent.jsx` → Create file
 📁 `src/App.jsx` → Import and use
 
 ### Modify State
+
 📁 `src/store/chatStore.js` → Add state/actions
 
 ### Change AI Logic
+
 📁 `src/utils/api.js` → Update functions
 
 ---
@@ -88,6 +93,7 @@ npm audit fix           # Fix security issues
 ## 🔧 Quick Customizations
 
 ### 1. Change App Name
+
 ```javascript
 // index.html
 <title>Your App Name</title>
@@ -97,6 +103,7 @@ npm audit fix           # Fix security issues
 ```
 
 ### 2. Change Primary Color
+
 ```javascript
 // tailwind.config.js
 colors: {
@@ -108,12 +115,14 @@ colors: {
 ```
 
 ### 3. Change Message Style
+
 ```javascript
 // src/components/Message.jsx
 // Edit className strings in bubble divs
 ```
 
 ### 4. Add New Feature
+
 ```javascript
 // src/store/chatStore.js
 myFeature: false,
@@ -132,39 +141,46 @@ const { myFeature, toggleMyFeature } = useChatStore();
 ### OpenAI Setup (5 minutes)
 
 1. **Get API Key**
+
    - Visit https://platform.openai.com/api-keys
    - Create new key
    - Copy key
 
 2. **Add to .env**
+
    ```env
    VITE_OPENAI_API_KEY=sk-proj-xxxxx
    ```
 
 3. **Update api.js**
+
    ```javascript
    // src/utils/api.js
    export const getAIResponse = async (messages) => {
-     const response = await fetch('https://api.openai.com/v1/chat/completions', {
-       method: 'POST',
-       headers: {
-         'Content-Type': 'application/json',
-         'Authorization': `Bearer ${import.meta.env.VITE_OPENAI_API_KEY}`,
-       },
-       body: JSON.stringify({
-         model: 'gpt-4',
-         messages: messages,
-       }),
-     });
+     const response = await fetch(
+       "https://api.openai.com/v1/chat/completions",
+       {
+         method: "POST",
+         headers: {
+           "Content-Type": "application/json",
+           Authorization: `Bearer ${import.meta.env.VITE_OPENAI_API_KEY}`,
+         },
+         body: JSON.stringify({
+           model: "gpt-4",
+           messages: messages,
+         }),
+       }
+     );
      const data = await response.json();
      return data.choices[0].message.content;
    };
    ```
 
 4. **Use in InputBar.jsx**
+
    ```javascript
    // Replace simulateAIResponse with getAIResponse
-   import { getAIResponse } from '../utils/api';
+   import { getAIResponse } from "../utils/api";
    const response = await getAIResponse(allMessages);
    ```
 
@@ -210,6 +226,7 @@ netlify env:set VITE_OPENAI_API_KEY "your-key"
 ## 🐛 Troubleshooting
 
 ### App Not Loading
+
 ```bash
 # Clear cache and restart
 npm run dev
@@ -217,6 +234,7 @@ npm run dev
 ```
 
 ### Styles Not Working
+
 ```bash
 # Check Tailwind is running
 # Should see PostCSS warnings in terminal
@@ -224,6 +242,7 @@ npm run dev
 ```
 
 ### API Not Working
+
 ```bash
 # Check .env file exists
 # Check API key is correct
@@ -232,6 +251,7 @@ npm run dev
 ```
 
 ### Build Errors
+
 ```bash
 # Clear and reinstall
 rm -rf node_modules package-lock.json
@@ -239,6 +259,7 @@ npm install
 ```
 
 ### Port Already in Use
+
 ```bash
 # Use different port
 npm run dev -- --port 3001
@@ -256,22 +277,22 @@ npx kill-port 3000
 ```javascript
 const {
   // State
-  chats,              // Array of all chats
-  currentChatId,      // Active chat ID
-  isTyping,          // Boolean: AI is typing
-  sidebarOpen,       // Boolean: sidebar visible
-  
+  chats, // Array of all chats
+  currentChatId, // Active chat ID
+  isTyping, // Boolean: AI is typing
+  sidebarOpen, // Boolean: sidebar visible
+
   // Actions
-  createNewChat,     // Create new chat
-  setCurrentChat,    // Switch chat
-  addMessage,        // Add message to chat
-  updateMessage,     // Update message content
-  deleteMessage,     // Remove message
-  deleteChat,        // Remove chat
-  togglePinChat,     // Pin/unpin chat
-  setIsTyping,       // Set typing state
-  toggleSidebar,     // Show/hide sidebar
-  getCurrentChat,    // Get active chat object
+  createNewChat, // Create new chat
+  setCurrentChat, // Switch chat
+  addMessage, // Add message to chat
+  updateMessage, // Update message content
+  deleteMessage, // Remove message
+  deleteChat, // Remove chat
+  togglePinChat, // Pin/unpin chat
+  setIsTyping, // Set typing state
+  toggleSidebar, // Show/hide sidebar
+  getCurrentChat, // Get active chat object
 } = useChatStore();
 ```
 
@@ -281,10 +302,10 @@ const {
 
 ```javascript
 // .env
-VITE_ENABLE_STREAMING=true      // Enable message streaming
-VITE_ENABLE_VOICE=true          // Enable voice input
-VITE_ENABLE_FILE_UPLOAD=true    // Enable file uploads
-VITE_MAX_FILE_SIZE=10485760     // 10MB max file size
+VITE_ENABLE_STREAMING = true; // Enable message streaming
+VITE_ENABLE_VOICE = true; // Enable voice input
+VITE_ENABLE_FILE_UPLOAD = true; // Enable file uploads
+VITE_MAX_FILE_SIZE = 10485760; // 10MB max file size
 ```
 
 ---
@@ -292,6 +313,7 @@ VITE_MAX_FILE_SIZE=10485760     // 10MB max file size
 ## 📊 Performance Tips
 
 ### Optimize Build
+
 ```javascript
 // vite.config.js
 build: {
@@ -307,14 +329,16 @@ build: {
 ```
 
 ### Lazy Load Components
+
 ```javascript
-import { lazy } from 'react';
-const Message = lazy(() => import('./components/Message'));
+import { lazy } from "react";
+const Message = lazy(() => import("./components/Message"));
 ```
 
 ### Memoize Expensive Renders
+
 ```javascript
-import { memo } from 'react';
+import { memo } from "react";
 export default memo(Message);
 ```
 
@@ -368,16 +392,16 @@ Border:          rgba(255,255,255,0.1)
 
 ## 📚 Documentation Links
 
-| Topic | File |
-|-------|------|
-| Getting Started | README.md |
-| Installation | SETUP.md |
-| AI Integration | API_GUIDE.md |
-| UI Design | DESIGN_SPECS.md |
-| Visual Guide | VISUAL_REFERENCE.md |
-| Deployment | DEPLOYMENT.md |
-| Future Plans | ROADMAP.md |
-| Project Summary | PROJECT_SUMMARY.md |
+| Topic           | File                |
+| --------------- | ------------------- |
+| Getting Started | README.md           |
+| Installation    | SETUP.md            |
+| AI Integration  | API_GUIDE.md        |
+| UI Design       | DESIGN_SPECS.md     |
+| Visual Guide    | VISUAL_REFERENCE.md |
+| Deployment      | DEPLOYMENT.md       |
+| Future Plans    | ROADMAP.md          |
+| Project Summary | PROJECT_SUMMARY.md  |
 
 ---
 
@@ -412,17 +436,20 @@ Border:          rgba(255,255,255,0.1)
 ## 🎯 Next Actions
 
 ### Immediate (Now)
+
 1. ✅ Open http://localhost:3000
 2. ✅ Test the interface
 3. ✅ Create a chat
 4. ✅ Send messages
 
 ### Today
+
 1. [ ] Connect OpenAI API (API_GUIDE.md)
 2. [ ] Customize colors (tailwind.config.js)
 3. [ ] Deploy to Vercel (DEPLOYMENT.md)
 
 ### This Week
+
 1. [ ] Add authentication
 2. [ ] Enable file uploads
 3. [ ] Add voice input
@@ -459,4 +486,4 @@ Check ROADMAP.md for future enhancements.
 
 ---
 
-*Quick Reference v1.0 - Last Updated: December 15, 2025*
+_Quick Reference v1.0 - Last Updated: December 15, 2025_

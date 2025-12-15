@@ -1,6 +1,6 @@
-import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
-import { nanoid } from 'nanoid';
+import { create } from "zustand";
+import { persist } from "zustand/middleware";
+import { nanoid } from "nanoid";
 
 const useChatStore = create(
   persist(
@@ -9,14 +9,15 @@ const useChatStore = create(
       chats: [],
       currentChatId: null,
       isTyping: false,
-      theme: 'dark',
+      theme: "dark",
       sidebarOpen: true,
+      fontSize: 16,
 
       // Actions
       createNewChat: () => {
         const newChat = {
           id: nanoid(),
-          title: 'New Chat',
+          title: "New Chat",
           messages: [],
           createdAt: new Date().toISOString(),
           pinned: false,
@@ -48,7 +49,10 @@ const useChatStore = create(
               ? {
                   ...chat,
                   messages: [...chat.messages, { ...message, id: nanoid() }],
-                  title: chat.messages.length === 0 ? message.content.slice(0, 50) : chat.title,
+                  title:
+                    chat.messages.length === 0
+                      ? message.content.slice(0, 50)
+                      : chat.title,
                 }
               : chat
           ),
@@ -86,10 +90,13 @@ const useChatStore = create(
       deleteChat: (chatId) => {
         set((state) => {
           const newChats = state.chats.filter((chat) => chat.id !== chatId);
-          const newCurrentId = state.currentChatId === chatId 
-            ? (newChats.length > 0 ? newChats[0].id : null)
-            : state.currentChatId;
-          
+          const newCurrentId =
+            state.currentChatId === chatId
+              ? newChats.length > 0
+                ? newChats[0].id
+                : null
+              : state.currentChatId;
+
           return {
             chats: newChats,
             currentChatId: newCurrentId,
@@ -122,7 +129,15 @@ const useChatStore = create(
       },
 
       toggleTheme: () => {
-        set((state) => ({ theme: state.theme === 'dark' ? 'light' : 'dark' }));
+        set((state) => ({ theme: state.theme === "dark" ? "light" : "dark" }));
+      },
+
+      increaseFontSize: () => {
+        set((state) => ({ fontSize: Math.min(state.fontSize + 2, 24) }));
+      },
+
+      decreaseFontSize: () => {
+        set((state) => ({ fontSize: Math.max(state.fontSize - 2, 12) }));
       },
 
       getCurrentChat: () => {
@@ -131,11 +146,12 @@ const useChatStore = create(
       },
     }),
     {
-      name: 'chatai-storage',
+      name: "chatai-storage",
       partialize: (state) => ({
         chats: state.chats,
         currentChatId: state.currentChatId,
         theme: state.theme,
+        fontSize: state.fontSize,
       }),
     }
   )

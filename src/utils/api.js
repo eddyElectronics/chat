@@ -1,26 +1,29 @@
 // Chat API configuration
-const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || 'http://localhost:5678';
-const CHAT_ENDPOINT = import.meta.env.VITE_CHAT_ENDPOINT || '/webhook/chat';
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || "http://localhost:5678";
+const CHAT_ENDPOINT = import.meta.env.VITE_CHAT_ENDPOINT || "/webhook/chat";
 
 // Real API call to your backend
 export const sendChatMessage = async (message, sessionId = null) => {
   try {
     // Generate or use existing session ID
-    const currentSessionId = sessionId || localStorage.getItem('chatai-session-id') || generateSessionId();
-    
+    const currentSessionId =
+      sessionId ||
+      localStorage.getItem("chatai-session-id") ||
+      generateSessionId();
+
     // Store session ID for future requests
     if (!sessionId) {
-      localStorage.setItem('chatai-session-id', currentSessionId);
+      localStorage.setItem("chatai-session-id", currentSessionId);
     }
 
     const response = await fetch(`${BACKEND_URL}${CHAT_ENDPOINT}`, {
-      method: 'POST',
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
         sessionId: currentSessionId,
-        action: 'sendMessage',
+        action: "sendMessage",
         chatInput: message,
       }),
     });
@@ -31,16 +34,25 @@ export const sendChatMessage = async (message, sessionId = null) => {
 
     const data = await response.json();
     // Check for text field first (your API format)
-    return data.text || data.response || data.message || data.output || data.content || JSON.stringify(data);
+    return (
+      data.text ||
+      data.response ||
+      data.message ||
+      data.output ||
+      data.content ||
+      JSON.stringify(data)
+    );
   } catch (error) {
-    console.error('Chat API error:', error);
+    console.error("Chat API error:", error);
     throw error;
   }
 };
 
 // Generate a unique session ID
 const generateSessionId = () => {
-  return 'session_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+  return (
+    "session_" + Date.now() + "_" + Math.random().toString(36).substr(2, 9)
+  );
 };
 
 // Simulated AI response function (fallback)
@@ -51,16 +63,20 @@ export const simulateAIResponse = async (userMessage) => {
   try {
     return await sendChatMessage(userMessage);
   } catch (error) {
-    console.warn('Falling back to simulated response:', error);
+    console.warn("Falling back to simulated response:", error);
   }
 
   // Fallback: Simulate network delay
-  await new Promise(resolve => setTimeout(resolve, 1500));
+  await new Promise((resolve) => setTimeout(resolve, 1500));
 
   // Simple response logic based on keywords
   const message = userMessage.toLowerCase();
 
-  if (message.includes('code') || message.includes('function') || message.includes('component')) {
+  if (
+    message.includes("code") ||
+    message.includes("function") ||
+    message.includes("component")
+  ) {
     return `Here's a code example that might help:
 
 \`\`\`javascript
@@ -97,7 +113,7 @@ This component demonstrates:
 Would you like me to explain any specific part?`;
   }
 
-  if (message.includes('idea') || message.includes('brainstorm')) {
+  if (message.includes("idea") || message.includes("brainstorm")) {
     return `Great question! Here are some innovative ideas:
 
 1. **Smart Solution**: Use AI to analyze patterns and provide personalized recommendations
@@ -114,7 +130,11 @@ Would you like me to explain any specific part?`;
 Would you like me to elaborate on any of these ideas?`;
   }
 
-  if (message.includes('debug') || message.includes('error') || message.includes('bug')) {
+  if (
+    message.includes("debug") ||
+    message.includes("error") ||
+    message.includes("bug")
+  ) {
     return `Let me help you debug that issue! Here are common troubleshooting steps:
 
 **1. Check the Console**
@@ -148,7 +168,7 @@ try {
 Can you share the specific error message you're seeing?`;
   }
 
-  if (message.includes('summarize') || message.includes('summary')) {
+  if (message.includes("summarize") || message.includes("summary")) {
     return `I'd be happy to help you summarize content! Here's how I can assist:
 
 **For Articles & Documents:**

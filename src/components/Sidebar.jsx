@@ -1,11 +1,27 @@
-import React, { useState } from 'react';
-import { X, Search, Pin, Trash2, Edit2, MessageSquare, ChevronLeft } from 'lucide-react';
-import useChatStore from '../store/chatStore';
-import { format } from 'date-fns';
+import React, { useState } from "react";
+import {
+  X,
+  Search,
+  Pin,
+  Trash2,
+  Edit2,
+  MessageSquare,
+  ChevronLeft,
+} from "lucide-react";
+import useChatStore from "../store/chatStore";
+import { format } from "date-fns";
 
 const Sidebar = ({ isMobile }) => {
-  const { chats, currentChatId, setCurrentChat, deleteChat, togglePinChat, sidebarOpen, toggleSidebar } = useChatStore();
-  const [searchQuery, setSearchQuery] = useState('');
+  const {
+    chats,
+    currentChatId,
+    setCurrentChat,
+    deleteChat,
+    togglePinChat,
+    sidebarOpen,
+    toggleSidebar,
+  } = useChatStore();
+  const [searchQuery, setSearchQuery] = useState("");
   const [editingId, setEditingId] = useState(null);
 
   const filteredChats = chats.filter((chat) =>
@@ -30,11 +46,11 @@ const Sidebar = ({ isMobile }) => {
       {/* Sidebar */}
       <aside
         className={`
-          ${isMobile ? 'fixed left-0 top-14 bottom-0 z-50' : 'relative'}
+          ${isMobile ? "fixed left-0 top-14 bottom-0 z-50" : "relative"}
           w-[260px] border-r border-gray-700/50 dark:border-gray-700/50 light:border-gray-200 
           bg-primary-surface dark:bg-primary-surface light:bg-light-surface
           flex flex-col transition-transform duration-300
-          ${isMobile && !sidebarOpen ? '-translate-x-full' : 'translate-x-0'}
+          ${isMobile && !sidebarOpen ? "-translate-x-full" : "translate-x-0"}
         `}
       >
         {/* Search */}
@@ -79,7 +95,9 @@ const Sidebar = ({ isMobile }) => {
 
           {regularChats.length > 0 && (
             <div>
-              <h3 className="text-xs font-semibold text-gray-400 px-2 mb-2">Recent</h3>
+              <h3 className="text-xs font-semibold text-gray-400 px-2 mb-2">
+                Recent
+              </h3>
               {regularChats.map((chat) => (
                 <ChatItem
                   key={chat.id}
@@ -120,14 +138,26 @@ const Sidebar = ({ isMobile }) => {
   );
 };
 
-const ChatItem = ({ chat, isActive, onSelect, onDelete, onTogglePin, editingId, setEditingId }) => {
+const ChatItem = ({
+  chat,
+  isActive,
+  onSelect,
+  onDelete,
+  onTogglePin,
+  editingId,
+  setEditingId,
+}) => {
   const [showActions, setShowActions] = useState(false);
 
   return (
     <div
       className={`
         group relative mb-1 rounded-lg transition-all
-        ${isActive ? 'bg-primary-accent/10 border border-primary-accent/30' : 'hover:bg-gray-700/30'}
+        ${
+          isActive
+            ? "bg-primary-accent/10 border border-primary-accent/30"
+            : "hover:bg-gray-700/30"
+        }
       `}
       onMouseEnter={() => setShowActions(true)}
       onMouseLeave={() => setShowActions(false)}
@@ -136,13 +166,22 @@ const ChatItem = ({ chat, isActive, onSelect, onDelete, onTogglePin, editingId, 
         onClick={onSelect}
         className="w-full text-left px-3 py-2.5 flex items-start gap-2"
       >
-        <MessageSquare className={`w-4 h-4 mt-0.5 flex-shrink-0 ${isActive ? 'text-primary-accent' : 'text-gray-400'}`} />
+        <MessageSquare
+          className={`w-4 h-4 mt-0.5 flex-shrink-0 ${
+            isActive ? "text-primary-accent" : "text-gray-400"
+          }`}
+        />
         <div className="flex-1 min-w-0">
-          <p className={`text-sm font-medium truncate ${isActive ? 'text-white' : 'text-gray-300'}`}>
+          <p
+            className={`text-sm font-medium truncate ${
+              isActive ? "text-white" : "text-gray-300"
+            }`}
+          >
             {chat.title}
           </p>
           <p className="text-xs text-gray-500 mt-0.5">
-            {chat.messages.length} messages · {format(new Date(chat.createdAt), 'MMM d')}
+            {chat.messages.length} messages ·{" "}
+            {format(new Date(chat.createdAt), "MMM d")}
           </p>
         </div>
       </button>
@@ -156,9 +195,15 @@ const ChatItem = ({ chat, isActive, onSelect, onDelete, onTogglePin, editingId, 
               onTogglePin();
             }}
             className="p-1.5 hover:bg-gray-700/50 rounded"
-            title={chat.pinned ? 'Unpin' : 'Pin'}
+            title={chat.pinned ? "Unpin" : "Pin"}
           >
-            <Pin className={`w-3.5 h-3.5 ${chat.pinned ? 'text-primary-accent fill-current' : 'text-gray-400'}`} />
+            <Pin
+              className={`w-3.5 h-3.5 ${
+                chat.pinned
+                  ? "text-primary-accent fill-current"
+                  : "text-gray-400"
+              }`}
+            />
           </button>
           <button
             onClick={(e) => {
