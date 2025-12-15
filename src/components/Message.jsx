@@ -6,7 +6,7 @@ import useChatStore from "../store/chatStore";
 
 const Message = ({ message, index }) => {
   const [copied, setCopied] = useState(false);
-  const { currentChatId, deleteMessage } = useChatStore();
+  const { currentChatId, deleteMessage, fontSize } = useChatStore();
   const isUser = message.role === "user";
 
   const handleCopy = () => {
@@ -65,12 +65,16 @@ const Message = ({ message, index }) => {
             `}
           >
             {isUser ? (
-              <p className="text-body-lg whitespace-pre-wrap break-words">
+              <p 
+                className="whitespace-pre-wrap break-words"
+                style={{ fontSize: `${fontSize}px` }}
+              >
                 {message.content}
               </p>
             ) : (
               <div
-                className="markdown-content text-body-lg"
+                className="markdown-content"
+                style={{ fontSize: `${fontSize}px` }}
                 dangerouslySetInnerHTML={{ __html: message.content }}
               />
             )}
