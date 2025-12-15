@@ -65,7 +65,7 @@ const Message = ({ message, index }) => {
             `}
           >
             {isUser ? (
-              <p 
+              <p
                 className="whitespace-pre-wrap break-words"
                 style={{ fontSize: `${fontSize}px` }}
               >
