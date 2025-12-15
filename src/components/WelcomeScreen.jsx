@@ -47,7 +47,7 @@ const WelcomeScreen = () => {
             <MessageSquarePlus className="w-10 h-10 text-white" />
           </div>
           <h1 className="text-heading-lg text-white mb-3">
-            Welcome to ChatAI
+            Welcome to BotFahsai
           </h1>
           <p className="text-body-lg text-gray-400">
             How can I help you today?

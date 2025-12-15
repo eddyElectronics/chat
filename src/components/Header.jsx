@@ -18,9 +18,9 @@ const Header = ({ isMobile }) => {
         
         <div className="flex items-center gap-2">
           <div className="w-8 h-8 bg-gradient-to-br from-primary-accent to-primary-blue rounded-lg flex items-center justify-center">
-            <span className="text-white font-bold text-sm">AI</span>
+            <span className="text-white font-bold text-sm">BF</span>
           </div>
-          <h1 className="text-white dark:text-white light:text-gray-900 font-bold text-xl tracking-tight">ChatAI</h1>
+          <h1 className="text-white dark:text-white light:text-gray-900 font-bold text-xl tracking-tight">BotFahsai</h1>
         </div>
       </div>
 

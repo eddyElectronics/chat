@@ -87,7 +87,7 @@ const InputBar = () => {
               value={input}
               onChange={(e) => setInput(e.target.value)}
               onKeyDown={handleKeyDown}
-              placeholder="Message ChatAI..."
+              placeholder="Message BotFahsai..."
               rows={1}
               className="flex-1 bg-transparent text-white dark:text-white light:text-gray-900 placeholder-gray-500 dark:placeholder-gray-500 light:placeholder-gray-400 resize-none focus:outline-none text-body-lg py-2 max-h-[120px] scrollbar-thin"
             />
@@ -112,7 +112,7 @@ const InputBar = () => {
 
         {/* Footer Text */}
         <p className="text-xs text-gray-500 text-center mt-3">
-          ChatAI can make mistakes. Consider checking important information.
+          BotFahsai can make mistakes. Consider checking important information.
         </p>
       </form>
     </div>
