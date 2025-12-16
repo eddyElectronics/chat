@@ -15,12 +15,12 @@ export default {
           blueHover: "#2680E0",
         },
         light: {
-          bg: "#FFFFFF",
-          surface: "#F7F7F8",
-          surfaceLight: "#ECECF1",
-          border: "#D1D5DB",
-          text: "#374151",
-          textSecondary: "#6B7280",
+          bg: "#F5F5F5",
+          surface: "#FFFFFF",
+          surfaceLight: "#F9FAFB",
+          border: "#9CA3AF",
+          text: "#111827",
+          textSecondary: "#374151",
         },
       },
       fontFamily: {
@@ -97,5 +97,10 @@ export default {
       },
     },
   },
-  plugins: [require("@tailwindcss/typography")],
+  plugins: [
+    require("@tailwindcss/typography"),
+    function ({ addVariant }) {
+      addVariant("light", ".light &");
+    },
+  ],
 };

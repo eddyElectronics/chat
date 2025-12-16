@@ -11,7 +11,7 @@ const useChatStore = create(
       isTyping: false,
       theme: "dark",
       sidebarOpen: true,
-      fontSize: 14,
+      fontSize: 11,
       editingMessage: null,
 
       // Actions
@@ -157,7 +157,11 @@ const useChatStore = create(
       },
 
       toggleTheme: () => {
-        set((state) => ({ theme: state.theme === "dark" ? "light" : "dark" }));
+        set((state) => {
+          const newTheme = state.theme === "dark" ? "light" : "dark";
+          console.log("[Store] Toggling theme from", state.theme, "to", newTheme);
+          return { theme: newTheme };
+        });
       },
 
       increaseFontSize: () => {

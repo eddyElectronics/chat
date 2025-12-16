@@ -47,22 +47,22 @@ const Sidebar = ({ isMobile }) => {
       <aside
         className={`
           ${isMobile ? "fixed left-0 top-14 bottom-0 z-50" : "relative"}
-          w-[260px] border-r border-gray-700/50 dark:border-gray-700/50 light:border-gray-200 
-          bg-primary-surface dark:bg-primary-surface light:bg-light-surface
+          w-[260px] border-r border-gray-700/50 dark:border-gray-700/50 light:border-gray-400 
+          bg-primary-surface dark:bg-primary-surface light:bg-white
           flex flex-col transition-transform duration-300
           ${isMobile && !sidebarOpen ? "-translate-x-full" : "translate-x-0"}
         `}
       >
         {/* Search */}
-        <div className="p-3 border-b border-gray-700/50 dark:border-gray-700/50 light:border-gray-200">
+        <div className="p-3 border-b border-gray-700/50 dark:border-gray-700/50 light:border-gray-300 shadow-sm light:shadow-gray-200">
           <div className="relative">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 dark:text-gray-400 light:text-gray-600" />
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 dark:text-gray-400 light:text-gray-700" />
             <input
               type="text"
               placeholder="Search chats..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full bg-primary-bg dark:bg-primary-bg light:bg-white border border-gray-700 dark:border-gray-700 light:border-gray-300 rounded-lg pl-10 pr-3 py-2 text-sm text-white dark:text-white light:text-gray-900 placeholder-gray-500 dark:placeholder-gray-500 light:placeholder-gray-400 focus:outline-none focus:border-primary-accent"
+              className="w-full bg-primary-bg dark:bg-primary-bg light:bg-gray-50 border border-gray-700 dark:border-gray-700 light:border-gray-400 rounded-lg pl-10 pr-3 py-2 text-sm text-white dark:text-white light:text-gray-900 placeholder-gray-500 dark:placeholder-gray-500 light:placeholder-gray-500 focus:outline-none focus:border-primary-accent light:focus:border-blue-500"
             />
           </div>
         </div>
@@ -71,7 +71,7 @@ const Sidebar = ({ isMobile }) => {
         <div className="flex-1 overflow-y-auto scrollbar-thin p-2">
           {pinnedChats.length > 0 && (
             <div className="mb-4">
-              <h3 className="text-xs font-semibold text-gray-400 px-2 mb-2 flex items-center gap-1">
+              <h3 className="text-xs font-semibold text-gray-400 dark:text-gray-400 light:text-gray-600 px-2 mb-2 flex items-center gap-1">
                 <Pin className="w-3 h-3" />
                 Pinned
               </h3>
@@ -95,7 +95,7 @@ const Sidebar = ({ isMobile }) => {
 
           {regularChats.length > 0 && (
             <div>
-              <h3 className="text-xs font-semibold text-gray-400 px-2 mb-2">
+              <h3 className="text-xs font-semibold text-gray-400 dark:text-gray-400 light:text-gray-600 px-2 mb-2">
                 Recent
               </h3>
               {regularChats.map((chat) => (
@@ -155,8 +155,8 @@ const ChatItem = ({
         group relative mb-1 rounded-lg transition-all
         ${
           isActive
-            ? "bg-primary-accent/10 border border-primary-accent/30"
-            : "hover:bg-gray-700/30"
+            ? "bg-primary-accent/10 border border-primary-accent/30 light:bg-blue-50 light:border-blue-300"
+            : "hover:bg-gray-700/30 light:hover:bg-gray-100"
         }
       `}
       onMouseEnter={() => setShowActions(true)}
@@ -174,12 +174,12 @@ const ChatItem = ({
         <div className="flex-1 min-w-0">
           <p
             className={`text-sm font-medium truncate ${
-              isActive ? "text-white" : "text-gray-300"
+              isActive ? "text-white dark:text-white light:text-blue-700" : "text-gray-300 light:text-gray-700"
             }`}
           >
             {chat.title}
           </p>
-          <p className="text-xs text-gray-500 mt-0.5">
+          <p className="text-xs text-gray-500 dark:text-gray-500 light:text-gray-600 mt-0.5">
             {chat.messages.length} messages ·{" "}
             {format(new Date(chat.createdAt), "MMM d")}
           </p>
@@ -188,7 +188,7 @@ const ChatItem = ({
 
       {/* Actions */}
       {showActions && (
-        <div className="absolute right-2 top-2 flex gap-1 bg-primary-surface rounded-md shadow-lg p-1">
+        <div className="absolute right-2 top-2 flex gap-1 bg-primary-surface dark:bg-primary-surface light:bg-white rounded-md shadow-lg light:shadow-gray-300 light:border light:border-gray-200 p-1">
           <button
             onClick={(e) => {
               e.stopPropagation();

@@ -25,7 +25,16 @@
   }
 
   .light body {
-    @apply bg-white text-gray-900;
+    @apply bg-gray-100 text-gray-900;
+  }
+  
+  /* Light mode scrollbar */
+  .light .scrollbar-thin::-webkit-scrollbar-thumb {
+    @apply bg-gray-400;
+  }
+
+  .light .scrollbar-thin::-webkit-scrollbar-thumb:hover {
+    @apply bg-gray-500;
   }
 }
 
