@@ -11,7 +11,7 @@ const useChatStore = create(
       isTyping: false,
       theme: "dark",
       sidebarOpen: true,
-      fontSize: 16,
+      fontSize: 14,
       editingMessage: null,
 
       // Actions
