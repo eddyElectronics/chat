@@ -3,12 +3,7 @@ import { Menu, Plus, Search, Settings, Sun, Moon, Type } from "lucide-react";
 import useChatStore from "../store/chatStore";
 
 const Header = ({ isMobile }) => {
-  const {
-    toggleSidebar,
-    createNewChat,
-    theme,
-    toggleTheme,
-  } = useChatStore();
+  const { toggleSidebar, createNewChat, theme, toggleTheme } = useChatStore();
 
   return (
     <header className="h-14 border-b border-gray-700/50 dark:border-gray-700/50 light:border-gray-200 flex items-center justify-between px-4 bg-primary-surface dark:bg-primary-surface light:bg-white backdrop-blur-md">
