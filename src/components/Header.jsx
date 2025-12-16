@@ -40,23 +40,23 @@ const Header = ({ isMobile }) => {
 
       <div className="flex items-center gap-2">
         {/* Font Size Controls */}
-        <div className="hidden md:flex items-center gap-1 px-2 py-1 bg-gray-700/30 rounded-lg">
+        <div className="flex items-center gap-1 px-2 py-1 bg-gray-700/30 dark:bg-gray-700/30 light:bg-gray-200 rounded-lg">
           <button
             onClick={decreaseFontSize}
-            className="p-1.5 hover:bg-gray-700/50 rounded transition-colors"
+            className="p-1.5 hover:bg-gray-700/50 dark:hover:bg-gray-700/50 light:hover:bg-gray-300 rounded transition-colors"
             aria-label="Decrease font size"
             title="Decrease font size"
           >
-            <span className="text-gray-300 text-lg font-bold">A-</span>
+            <span className="text-gray-300 dark:text-gray-300 light:text-gray-700 text-lg font-bold">A-</span>
           </button>
-          <span className="text-xs text-gray-400 px-1">{fontSize}px</span>
+          <span className="text-xs text-gray-400 dark:text-gray-400 light:text-gray-600 px-1">{fontSize}px</span>
           <button
             onClick={increaseFontSize}
-            className="p-1.5 hover:bg-gray-700/50 rounded transition-colors"
+            className="p-1.5 hover:bg-gray-700/50 dark:hover:bg-gray-700/50 light:hover:bg-gray-300 rounded transition-colors"
             aria-label="Increase font size"
             title="Increase font size"
           >
-            <span className="text-gray-300 text-lg font-bold">A+</span>
+            <span className="text-gray-300 dark:text-gray-300 light:text-gray-700 text-lg font-bold">A+</span>
           </button>
         </div>
 
