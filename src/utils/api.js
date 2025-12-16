@@ -55,8 +55,6 @@ const generateSessionId = () => {
   );
 };
 
-
-
 // Real OpenAI API implementation (commented out)
 /*
 export const getAIResponse = async (messages) => {
