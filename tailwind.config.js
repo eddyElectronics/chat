@@ -71,25 +71,25 @@ export default {
       typography: {
         DEFAULT: {
           css: {
-            maxWidth: 'none',
-            color: '#e5e7eb',
+            maxWidth: "none",
+            color: "#e5e7eb",
             a: {
-              color: '#10A37F',
-              '&:hover': {
-                color: '#0D8C6F',
+              color: "#10A37F",
+              "&:hover": {
+                color: "#0D8C6F",
               },
             },
             code: {
-              color: '#10A37F',
-              backgroundColor: 'rgba(0, 0, 0, 0.3)',
-              padding: '0.25rem 0.375rem',
-              borderRadius: '0.25rem',
-              fontWeight: '400',
+              color: "#10A37F",
+              backgroundColor: "rgba(0, 0, 0, 0.3)",
+              padding: "0.25rem 0.375rem",
+              borderRadius: "0.25rem",
+              fontWeight: "400",
             },
-            'code::before': {
+            "code::before": {
               content: '""',
             },
-            'code::after': {
+            "code::after": {
               content: '""',
             },
           },
@@ -97,5 +97,5 @@ export default {
       },
     },
   },
-  plugins: [require('@tailwindcss/typography')],
+  plugins: [require("@tailwindcss/typography")],
 };

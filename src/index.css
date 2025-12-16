@@ -76,6 +76,22 @@
   line-height: 1.6;
 }
 
+/* Syntax Highlighter Custom Styles */
+.markdown-content pre {
+  @apply !bg-gray-900/80 !rounded-lg !my-3 !p-0;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.markdown-content pre > div {
+  @apply !bg-transparent !m-0;
+}
+
+/* Code block wrapper */
+.markdown-content code[class*="language-"],
+.markdown-content pre[class*="language-"] {
+  @apply !text-sm !font-mono;
+}
+
 /* Reset and style all HTML elements */
 .markdown-content * {
   color: inherit;

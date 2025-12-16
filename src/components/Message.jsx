@@ -6,6 +6,7 @@ import ReactMarkdown from "react-markdown";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { oneDark } from "react-syntax-highlighter/dist/esm/styles/prism";
 import rehypeRaw from "rehype-raw";
+import remarkGfm from "remark-gfm";
 import useChatStore from "../store/chatStore";
 
 const Message = ({ message, index }) => {
@@ -81,6 +82,7 @@ const Message = ({ message, index }) => {
                 style={{ fontSize: `${fontSize}px` }}
               >
                 <ReactMarkdown
+                  remarkPlugins={[remarkGfm]}
                   rehypePlugins={[rehypeRaw]}
                   components={{
                     code({ node, inline, className, children, ...props }) {
@@ -108,22 +110,42 @@ const Message = ({ message, index }) => {
                       return <p className="mb-2 last:mb-0">{children}</p>;
                     },
                     ul({ children }) {
-                      return <ul className="list-disc pl-5 mb-2 space-y-1">{children}</ul>;
+                      return (
+                        <ul className="list-disc pl-5 mb-2 space-y-1">
+                          {children}
+                        </ul>
+                      );
                     },
                     ol({ children }) {
-                      return <ol className="list-decimal pl-5 mb-2 space-y-1">{children}</ol>;
+                      return (
+                        <ol className="list-decimal pl-5 mb-2 space-y-1">
+                          {children}
+                        </ol>
+                      );
                     },
                     li({ children }) {
                       return <li className="text-gray-100">{children}</li>;
                     },
                     h1({ children }) {
-                      return <h1 className="text-2xl font-bold mb-3 mt-4 text-white">{children}</h1>;
+                      return (
+                        <h1 className="text-2xl font-bold mb-3 mt-4 text-white">
+                          {children}
+                        </h1>
+                      );
                     },
                     h2({ children }) {
-                      return <h2 className="text-xl font-bold mb-2 mt-3 text-white">{children}</h2>;
+                      return (
+                        <h2 className="text-xl font-bold mb-2 mt-3 text-white">
+                          {children}
+                        </h2>
+                      );
                     },
                     h3({ children }) {
-                      return <h3 className="text-lg font-semibold mb-2 mt-2 text-white">{children}</h3>;
+                      return (
+                        <h3 className="text-lg font-semibold mb-2 mt-2 text-white">
+                          {children}
+                        </h3>
+                      );
                     },
                     blockquote({ children }) {
                       return (
@@ -147,7 +169,9 @@ const Message = ({ message, index }) => {
                     table({ children }) {
                       return (
                         <div className="overflow-x-auto my-2">
-                          <table className="min-w-full border border-gray-700">{children}</table>
+                          <table className="min-w-full border border-gray-700">
+                            {children}
+                          </table>
                         </div>
                       );
                     },
@@ -155,7 +179,11 @@ const Message = ({ message, index }) => {
                       return <thead className="bg-gray-800">{children}</thead>;
                     },
                     tbody({ children }) {
-                      return <tbody className="divide-y divide-gray-700">{children}</tbody>;
+                      return (
+                        <tbody className="divide-y divide-gray-700">
+                          {children}
+                        </tbody>
+                      );
                     },
                     tr({ children }) {
                       return <tr>{children}</tr>;
@@ -168,7 +196,11 @@ const Message = ({ message, index }) => {
                       );
                     },
                     td({ children }) {
-                      return <td className="px-4 py-2 border border-gray-700">{children}</td>;
+                      return (
+                        <td className="px-4 py-2 border border-gray-700">
+                          {children}
+                        </td>
+                      );
                     },
                   }}
                 >

@@ -3,21 +3,25 @@
 ## คุณสมบัติที่รองรับ
 
 ### 1. หัวข้อ (Headings)
+
 ```markdown
 # H1 Heading
+
 ## H2 Heading
+
 ### H3 Heading
 ```
 
 ### 2. ข้อความที่มีการจัดรูปแบบ
 
 **ตัวหนา (Bold)**
-*ตัวเอียง (Italic)*
+_ตัวเอียง (Italic)_
 ~~ขีดฆ่า (Strikethrough)~~
 
 ### 3. รายการ (Lists)
 
 #### Unordered List:
+
 - รายการที่ 1
 - รายการที่ 2
   - รายการย่อย 2.1
@@ -25,6 +29,7 @@
 - รายการที่ 3
 
 #### Ordered List:
+
 1. ขั้นตอนที่ 1
 2. ขั้นตอนที่ 2
 3. ขั้นตอนที่ 3
@@ -32,6 +37,7 @@
 ### 4. โค้ด (Code)
 
 #### Inline Code:
+
 ใช้ `const message = "Hello World"` สำหรับตัวแปร
 
 #### Code Blocks:
@@ -62,7 +68,7 @@ interface User {
 
 const user: User = {
   name: "John",
-  age: 30
+  age: 30,
 };
 ```
 
@@ -77,11 +83,11 @@ const user: User = {
 
 ### 7. ตาราง (Tables)
 
-| ชื่อ | อายุ | เมือง |
-|------|------|-------|
-| สมชาย | 25 | กรุงเทพ |
-| สมหญิง | 28 | เชียงใหม่ |
-| สมศักดิ์ | 30 | ภูเก็ต |
+| ชื่อ     | อายุ | เมือง     |
+| -------- | ---- | --------- |
+| สมชาย    | 25   | กรุงเทพ   |
+| สมหญิง   | 28   | เชียงใหม่ |
+| สมศักดิ์ | 30   | ภูเก็ต    |
 
 ### 8. เส้นแบ่ง (Horizontal Rule)
 
@@ -97,7 +103,7 @@ const user: User = {
 
 คุณสามารถผสมผสานการใช้งานต่างๆ ได้ เช่น:
 
-1. **ตัวหนา** และ *ตัวเอียง* ในประโยคเดียวกัน
+1. **ตัวหนา** และ _ตัวเอียง_ ในประโยคเดียวกัน
 2. ใช้ `inline code` ร่วมกับข้อความปกติ
 3. สร้าง [ลิงก์](https://example.com) ในรายการ
 
@@ -106,7 +112,7 @@ const user: User = {
 นี่คือตัวอย่างการสร้าง React Component:
 
 ```jsx
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
 function Counter() {
   const [count, setCount] = useState(0);
@@ -114,9 +120,7 @@ function Counter() {
   return (
     <div>
       <p>Count: {count}</p>
-      <button onClick={() => setCount(count + 1)}>
-        Increment
-      </button>
+      <button onClick={() => setCount(count + 1)}>Increment</button>
     </div>
   );
 }
