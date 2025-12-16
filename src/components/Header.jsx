@@ -47,16 +47,22 @@ const Header = ({ isMobile }) => {
             aria-label="Decrease font size"
             title="Decrease font size"
           >
-            <span className="text-gray-300 dark:text-gray-300 light:text-gray-700 text-lg font-bold">A-</span>
+            <span className="text-gray-300 dark:text-gray-300 light:text-gray-700 text-lg font-bold">
+              A-
+            </span>
           </button>
-          <span className="text-xs text-gray-400 dark:text-gray-400 light:text-gray-600 px-1">{fontSize}px</span>
+          <span className="text-xs text-gray-400 dark:text-gray-400 light:text-gray-600 px-1">
+            {fontSize}px
+          </span>
           <button
             onClick={increaseFontSize}
             className="p-1.5 hover:bg-gray-700/50 dark:hover:bg-gray-700/50 light:hover:bg-gray-300 rounded transition-colors"
             aria-label="Increase font size"
             title="Increase font size"
           >
-            <span className="text-gray-300 dark:text-gray-300 light:text-gray-700 text-lg font-bold">A+</span>
+            <span className="text-gray-300 dark:text-gray-300 light:text-gray-700 text-lg font-bold">
+              A+
+            </span>
           </button>
         </div>
 
