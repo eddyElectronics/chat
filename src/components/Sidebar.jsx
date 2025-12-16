@@ -20,9 +20,6 @@ const Sidebar = ({ isMobile }) => {
     togglePinChat,
     sidebarOpen,
     toggleSidebar,
-    fontSize,
-    increaseFontSize,
-    decreaseFontSize,
   } = useChatStore();
   const [searchQuery, setSearchQuery] = useState("");
   const [editingId, setEditingId] = useState(null);
@@ -56,35 +53,6 @@ const Sidebar = ({ isMobile }) => {
           ${isMobile && !sidebarOpen ? "-translate-x-full" : "translate-x-0"}
         `}
       >
-        {/* Font Size Controls */}
-        <div className="p-3 border-b border-gray-700/50 dark:border-gray-700/50 light:border-gray-300">
-          <div className="flex items-center justify-center gap-1 px-2 py-1 bg-gray-700/30 dark:bg-gray-700/30 light:bg-gray-200 rounded-lg">
-            <button
-              onClick={decreaseFontSize}
-              className="p-1.5 hover:bg-gray-700/50 dark:hover:bg-gray-700/50 light:hover:bg-gray-300 rounded transition-colors"
-              aria-label="Decrease font size"
-              title="Decrease font size"
-            >
-              <span className="text-gray-300 dark:text-gray-300 light:text-gray-700 text-lg font-bold">
-                A-
-              </span>
-            </button>
-            <span className="text-xs text-gray-400 dark:text-gray-400 light:text-gray-600 px-1">
-              {fontSize}px
-            </span>
-            <button
-              onClick={increaseFontSize}
-              className="p-1.5 hover:bg-gray-700/50 dark:hover:bg-gray-700/50 light:hover:bg-gray-300 rounded transition-colors"
-              aria-label="Increase font size"
-              title="Increase font size"
-            >
-              <span className="text-gray-300 dark:text-gray-300 light:text-gray-700 text-lg font-bold">
-                A+
-              </span>
-            </button>
-          </div>
-        </div>
-
         {/* Search */}
         <div className="p-3 border-b border-gray-700/50 dark:border-gray-700/50 light:border-gray-300 shadow-sm light:shadow-gray-200">
           <div className="relative">

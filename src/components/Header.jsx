@@ -3,7 +3,15 @@ import { Menu, Plus, Search, Settings, Sun, Moon, Type } from "lucide-react";
 import useChatStore from "../store/chatStore";
 
 const Header = ({ isMobile }) => {
-  const { toggleSidebar, createNewChat, theme, toggleTheme } = useChatStore();
+  const {
+    toggleSidebar,
+    createNewChat,
+    theme,
+    toggleTheme,
+    fontSize,
+    increaseFontSize,
+    decreaseFontSize,
+  } = useChatStore();
 
   return (
     <header className="h-14 border-b border-gray-700/50 dark:border-gray-700/50 light:border-gray-200 flex items-center justify-between px-4 bg-primary-surface dark:bg-primary-surface light:bg-white backdrop-blur-md">
@@ -53,6 +61,33 @@ const Header = ({ isMobile }) => {
             <span className="text-white text-sm font-medium">New Chat</span>
           )}
         </button>
+
+        {/* Font Size Controls */}
+        <div className="flex items-center gap-1 px-2 py-1 bg-gray-700/30 dark:bg-gray-700/30 light:bg-gray-200 rounded-lg">
+          <button
+            onClick={decreaseFontSize}
+            className="p-1.5 hover:bg-gray-700/50 dark:hover:bg-gray-700/50 light:hover:bg-gray-300 rounded transition-colors"
+            aria-label="Decrease font size"
+            title="Decrease font size"
+          >
+            <span className="text-gray-300 dark:text-gray-300 light:text-gray-700 text-lg font-bold">
+              A-
+            </span>
+          </button>
+          <span className="text-xs text-gray-400 dark:text-gray-400 light:text-gray-600 px-1">
+            {fontSize}px
+          </span>
+          <button
+            onClick={increaseFontSize}
+            className="p-1.5 hover:bg-gray-700/50 dark:hover:bg-gray-700/50 light:hover:bg-gray-300 rounded transition-colors"
+            aria-label="Increase font size"
+            title="Increase font size"
+          >
+            <span className="text-gray-300 dark:text-gray-300 light:text-gray-700 text-lg font-bold">
+              A+
+            </span>
+          </button>
+        </div>
       </div>
     </header>
   );
