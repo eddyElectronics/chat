@@ -6,7 +6,13 @@ import { sendChatMessage } from "../utils/api";
 const InputBar = () => {
   const [input, setInput] = useState("");
   const textareaRef = useRef(null);
-  const { currentChatId, addMessage, setIsTyping, editingMessage, setEditingMessage } = useChatStore();
+  const {
+    currentChatId,
+    addMessage,
+    setIsTyping,
+    editingMessage,
+    setEditingMessage,
+  } = useChatStore();
 
   // Load editing message
   useEffect(() => {

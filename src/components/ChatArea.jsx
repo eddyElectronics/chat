@@ -5,7 +5,13 @@ import Message from "./Message";
 import TypingIndicator from "./TypingIndicator";
 
 const ChatArea = () => {
-  const { getCurrentChat, isTyping, setEditingMessage, deleteMessagesFrom, currentChatId } = useChatStore();
+  const {
+    getCurrentChat,
+    isTyping,
+    setEditingMessage,
+    deleteMessagesFrom,
+    currentChatId,
+  } = useChatStore();
   const messagesEndRef = useRef(null);
   const currentChat = getCurrentChat();
 
@@ -33,7 +39,12 @@ const ChatArea = () => {
       <div className="max-w-3xl mx-auto px-4 py-6">
         <AnimatePresence mode="popLayout">
           {currentChat.messages.map((message, index) => (
-            <Message key={message.id} message={message} index={index} onEdit={handleEditMessage} />
+            <Message
+              key={message.id}
+              message={message}
+              index={index}
+              onEdit={handleEditMessage}
+            />
           ))}
         </AnimatePresence>
 
