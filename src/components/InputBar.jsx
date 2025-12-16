@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Send } from "lucide-react";
 import useChatStore from "../store/chatStore";
-import { sendChatMessage, simulateAIResponse } from "../utils/api";
+import { sendChatMessage } from "../utils/api";
 
 const InputBar = () => {
   const [input, setInput] = useState("");
@@ -35,7 +35,6 @@ const InputBar = () => {
     setIsTyping(true);
 
     try {
-      // Try real API first
       const response = await sendChatMessage(userMessage.content);
 
       const aiMessage = {
@@ -44,29 +43,9 @@ const InputBar = () => {
         timestamp: new Date().toISOString(),
       };
       addMessage(currentChatId, aiMessage);
-      setIsTyping(false);
     } catch (error) {
       console.error("Error getting AI response:", error);
-
-      // Fallback to simulated response
-      try {
-        const fallbackResponse = await simulateAIResponse(userMessage.content);
-        const aiMessage = {
-          role: "assistant",
-          content: fallbackResponse,
-          timestamp: new Date().toISOString(),
-        };
-        addMessage(currentChatId, aiMessage);
-      } catch (fallbackError) {
-        const errorMessage = {
-          role: "assistant",
-          content:
-            "❌ Sorry, I encountered an error connecting to the chat API. Please check that the server is running at http://localhost:5678/webhook/chat",
-          timestamp: new Date().toISOString(),
-        };
-        addMessage(currentChatId, errorMessage);
-      }
-
+    } finally {
       setIsTyping(false);
     }
   };
