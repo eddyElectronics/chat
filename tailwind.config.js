@@ -68,7 +68,34 @@ export default {
       backdropBlur: {
         glass: "10px",
       },
+      typography: {
+        DEFAULT: {
+          css: {
+            maxWidth: 'none',
+            color: '#e5e7eb',
+            a: {
+              color: '#10A37F',
+              '&:hover': {
+                color: '#0D8C6F',
+              },
+            },
+            code: {
+              color: '#10A37F',
+              backgroundColor: 'rgba(0, 0, 0, 0.3)',
+              padding: '0.25rem 0.375rem',
+              borderRadius: '0.25rem',
+              fontWeight: '400',
+            },
+            'code::before': {
+              content: '""',
+            },
+            'code::after': {
+              content: '""',
+            },
+          },
+        },
+      },
     },
   },
-  plugins: [],
+  plugins: [require('@tailwindcss/typography')],
 };

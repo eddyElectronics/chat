@@ -2,6 +2,10 @@ import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { Copy, Check, RotateCw, Trash2, User, Bot } from "lucide-react";
 import { format } from "date-fns";
+import ReactMarkdown from "react-markdown";
+import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
+import { oneDark } from "react-syntax-highlighter/dist/esm/styles/prism";
+import rehypeRaw from "rehype-raw";
 import useChatStore from "../store/chatStore";
 
 const Message = ({ message, index }) => {
@@ -73,10 +77,104 @@ const Message = ({ message, index }) => {
               </p>
             ) : (
               <div
-                className="markdown-content"
+                className="markdown-content prose prose-invert max-w-none"
                 style={{ fontSize: `${fontSize}px` }}
-                dangerouslySetInnerHTML={{ __html: message.content }}
-              />
+              >
+                <ReactMarkdown
+                  rehypePlugins={[rehypeRaw]}
+                  components={{
+                    code({ node, inline, className, children, ...props }) {
+                      const match = /language-(\w+)/.exec(className || "");
+                      return !inline && match ? (
+                        <SyntaxHighlighter
+                          style={oneDark}
+                          language={match[1]}
+                          PreTag="div"
+                          className="rounded-lg my-2"
+                          {...props}
+                        >
+                          {String(children).replace(/\n$/, "")}
+                        </SyntaxHighlighter>
+                      ) : (
+                        <code
+                          className="bg-gray-800 px-1.5 py-0.5 rounded text-sm text-primary-accent"
+                          {...props}
+                        >
+                          {children}
+                        </code>
+                      );
+                    },
+                    p({ children }) {
+                      return <p className="mb-2 last:mb-0">{children}</p>;
+                    },
+                    ul({ children }) {
+                      return <ul className="list-disc pl-5 mb-2 space-y-1">{children}</ul>;
+                    },
+                    ol({ children }) {
+                      return <ol className="list-decimal pl-5 mb-2 space-y-1">{children}</ol>;
+                    },
+                    li({ children }) {
+                      return <li className="text-gray-100">{children}</li>;
+                    },
+                    h1({ children }) {
+                      return <h1 className="text-2xl font-bold mb-3 mt-4 text-white">{children}</h1>;
+                    },
+                    h2({ children }) {
+                      return <h2 className="text-xl font-bold mb-2 mt-3 text-white">{children}</h2>;
+                    },
+                    h3({ children }) {
+                      return <h3 className="text-lg font-semibold mb-2 mt-2 text-white">{children}</h3>;
+                    },
+                    blockquote({ children }) {
+                      return (
+                        <blockquote className="border-l-4 border-primary-accent pl-4 italic my-2 text-gray-300">
+                          {children}
+                        </blockquote>
+                      );
+                    },
+                    a({ href, children }) {
+                      return (
+                        <a
+                          href={href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-primary-accent hover:text-primary-accentHover underline"
+                        >
+                          {children}
+                        </a>
+                      );
+                    },
+                    table({ children }) {
+                      return (
+                        <div className="overflow-x-auto my-2">
+                          <table className="min-w-full border border-gray-700">{children}</table>
+                        </div>
+                      );
+                    },
+                    thead({ children }) {
+                      return <thead className="bg-gray-800">{children}</thead>;
+                    },
+                    tbody({ children }) {
+                      return <tbody className="divide-y divide-gray-700">{children}</tbody>;
+                    },
+                    tr({ children }) {
+                      return <tr>{children}</tr>;
+                    },
+                    th({ children }) {
+                      return (
+                        <th className="px-4 py-2 text-left text-white font-semibold border border-gray-700">
+                          {children}
+                        </th>
+                      );
+                    },
+                    td({ children }) {
+                      return <td className="px-4 py-2 border border-gray-700">{children}</td>;
+                    },
+                  }}
+                >
+                  {message.content}
+                </ReactMarkdown>
+              </div>
             )}
           </div>
 
