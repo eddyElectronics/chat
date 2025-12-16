@@ -12,6 +12,7 @@ const useChatStore = create(
       theme: "dark",
       sidebarOpen: true,
       fontSize: 16,
+      editingMessage: null,
 
       // Actions
       createNewChat: () => {
@@ -85,6 +86,33 @@ const useChatStore = create(
               : chat
           ),
         }));
+      },
+
+      deleteMessagesFrom: (chatId, messageId) => {
+        set((state) => {
+          const chat = state.chats.find((c) => c.id === chatId);
+          if (!chat) return state;
+
+          const messageIndex = chat.messages.findIndex(
+            (msg) => msg.id === messageId
+          );
+          if (messageIndex === -1) return state;
+
+          return {
+            chats: state.chats.map((c) =>
+              c.id === chatId
+                ? {
+                    ...c,
+                    messages: c.messages.slice(0, messageIndex),
+                  }
+                : c
+            ),
+          };
+        });
+      },
+
+      setEditingMessage: (message) => {
+        set({ editingMessage: message });
       },
 
       deleteChat: (chatId) => {

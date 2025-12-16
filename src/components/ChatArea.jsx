@@ -5,9 +5,18 @@ import Message from "./Message";
 import TypingIndicator from "./TypingIndicator";
 
 const ChatArea = () => {
-  const { getCurrentChat, isTyping } = useChatStore();
+  const { getCurrentChat, isTyping, setEditingMessage, deleteMessagesFrom, currentChatId } = useChatStore();
   const messagesEndRef = useRef(null);
   const currentChat = getCurrentChat();
+
+  const handleEditMessage = (message) => {
+    if (currentChatId) {
+      // Delete this message and all messages after it
+      deleteMessagesFrom(currentChatId, message.id);
+      // Set the message to be edited in InputBar
+      setEditingMessage(message);
+    }
+  };
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -24,7 +33,7 @@ const ChatArea = () => {
       <div className="max-w-3xl mx-auto px-4 py-6">
         <AnimatePresence mode="popLayout">
           {currentChat.messages.map((message, index) => (
-            <Message key={message.id} message={message} index={index} />
+            <Message key={message.id} message={message} index={index} onEdit={handleEditMessage} />
           ))}
         </AnimatePresence>
 

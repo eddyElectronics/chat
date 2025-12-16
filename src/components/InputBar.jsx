@@ -6,7 +6,16 @@ import { sendChatMessage } from "../utils/api";
 const InputBar = () => {
   const [input, setInput] = useState("");
   const textareaRef = useRef(null);
-  const { currentChatId, addMessage, setIsTyping } = useChatStore();
+  const { currentChatId, addMessage, setIsTyping, editingMessage, setEditingMessage } = useChatStore();
+
+  // Load editing message
+  useEffect(() => {
+    if (editingMessage) {
+      setInput(editingMessage.content);
+      setEditingMessage(null);
+      textareaRef.current?.focus();
+    }
+  }, [editingMessage, setEditingMessage]);
 
   // Auto-resize textarea
   useEffect(() => {

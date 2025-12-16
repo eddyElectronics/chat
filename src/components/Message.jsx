@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { Copy, Check, RotateCw, Trash2, User, Bot } from "lucide-react";
+import { Copy, Check, RotateCw, Trash2, User, Bot, Pencil } from "lucide-react";
 import { format } from "date-fns";
 import ReactMarkdown from "react-markdown";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
@@ -9,7 +9,7 @@ import rehypeRaw from "rehype-raw";
 import remarkGfm from "remark-gfm";
 import useChatStore from "../store/chatStore";
 
-const Message = ({ message, index }) => {
+const Message = ({ message, index, onEdit }) => {
   const [copied, setCopied] = useState(false);
   const { currentChatId, deleteMessage, fontSize } = useChatStore();
   const isUser = message.role === "user";
@@ -233,6 +233,16 @@ const Message = ({ message, index }) => {
                   <Copy className="w-3.5 h-3.5 text-gray-400" />
                 )}
               </button>
+
+              {isUser && (
+                <button
+                  onClick={() => onEdit && onEdit(message)}
+                  className="p-1.5 hover:bg-gray-700/50 rounded transition-colors"
+                  title="Edit"
+                >
+                  <Pencil className="w-3.5 h-3.5 text-gray-400" />
+                </button>
+              )}
 
               {!isUser && (
                 <button
