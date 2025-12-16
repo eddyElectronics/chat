@@ -189,6 +189,7 @@ const useChatStore = create(
         currentChatId: state.currentChatId,
         theme: state.theme,
         fontSize: state.fontSize,
+        sidebarOpen: state.sidebarOpen,
       }),
     }
   )
