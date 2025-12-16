@@ -174,7 +174,9 @@ const ChatItem = ({
         <div className="flex-1 min-w-0">
           <p
             className={`text-sm font-medium truncate ${
-              isActive ? "text-white dark:text-white light:text-blue-700" : "text-gray-300 light:text-gray-700"
+              isActive
+                ? "text-white dark:text-white light:text-blue-700"
+                : "text-gray-300 light:text-gray-700"
             }`}
           >
             {chat.title}

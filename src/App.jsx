@@ -27,7 +27,10 @@ function App() {
       document.documentElement.classList.remove("dark");
       document.documentElement.classList.add("light");
     }
-    console.log("[App] Document classes:", document.documentElement.classList.toString());
+    console.log(
+      "[App] Document classes:",
+      document.documentElement.classList.toString()
+    );
   }, [theme]);
 
   // Initialize with a chat on first load

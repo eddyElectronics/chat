@@ -159,7 +159,12 @@ const useChatStore = create(
       toggleTheme: () => {
         set((state) => {
           const newTheme = state.theme === "dark" ? "light" : "dark";
-          console.log("[Store] Toggling theme from", state.theme, "to", newTheme);
+          console.log(
+            "[Store] Toggling theme from",
+            state.theme,
+            "to",
+            newTheme
+          );
           return { theme: newTheme };
         });
       },
