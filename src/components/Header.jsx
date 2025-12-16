@@ -14,8 +14,8 @@ const Header = ({ isMobile }) => {
   } = useChatStore();
 
   return (
-    <header className="h-14 border-b border-gray-700/50 dark:border-gray-700/50 light:border-gray-200 flex items-center justify-between px-4 bg-primary-surface dark:bg-primary-surface light:bg-white backdrop-blur-md">
-      <div className="flex items-center gap-3">
+    <header className="h-14 border-b border-gray-700/50 dark:border-gray-700/50 light:border-gray-200 flex items-center justify-between px-2 sm:px-4 bg-primary-surface dark:bg-primary-surface light:bg-white backdrop-blur-md">
+      <div className="flex items-center gap-1.5 sm:gap-3">
         <button
           onClick={toggleSidebar}
           className="p-2 hover:bg-gray-700/50 dark:hover:bg-gray-700/50 light:hover:bg-gray-100 rounded-lg transition-colors"
@@ -32,16 +32,16 @@ const Header = ({ isMobile }) => {
               className="w-full h-full object-contain"
             />
           </div>
-          <h1 className="text-white dark:text-white light:text-gray-900 font-bold text-xl tracking-tight">
+          <h1 className="hidden sm:block text-white dark:text-white light:text-gray-900 font-bold text-xl tracking-tight">
             BotFahsai
           </h1>
         </div>
       </div>
 
-      <div className="flex items-center gap-2">
+      <div className="flex items-center gap-1 sm:gap-2">
         <button
           onClick={toggleTheme}
-          className="p-2 hover:bg-gray-700/50 dark:hover:bg-gray-700/50 light:hover:bg-gray-200 rounded-lg transition-colors"
+          className="p-1.5 sm:p-2 hover:bg-gray-700/50 dark:hover:bg-gray-700/50 light:hover:bg-gray-200 rounded-lg transition-colors"
           aria-label="Toggle theme"
         >
           {theme === "dark" ? (
@@ -53,7 +53,7 @@ const Header = ({ isMobile }) => {
 
         <button
           onClick={createNewChat}
-          className="flex items-center gap-2 px-3 py-2 bg-primary-blue hover:bg-primary-blueHover rounded-lg transition-all hover:scale-105 active:scale-95 shadow-sm"
+          className="flex items-center gap-2 px-2 sm:px-3 py-1.5 sm:py-2 bg-primary-blue hover:bg-primary-blueHover rounded-lg transition-all hover:scale-105 active:scale-95 shadow-sm"
           aria-label="New chat"
         >
           <Plus className="w-5 h-5 text-white" />
@@ -63,27 +63,27 @@ const Header = ({ isMobile }) => {
         </button>
 
         {/* Font Size Controls */}
-        <div className="flex items-center gap-1 px-2 py-1 bg-gray-700/30 dark:bg-gray-700/30 light:bg-gray-200 rounded-lg">
+        <div className="flex items-center gap-0.5 sm:gap-1 px-1 sm:px-2 py-0.5 sm:py-1 bg-gray-700/30 dark:bg-gray-700/30 light:bg-gray-200 rounded-lg">
           <button
             onClick={decreaseFontSize}
-            className="p-1.5 hover:bg-gray-700/50 dark:hover:bg-gray-700/50 light:hover:bg-gray-300 rounded transition-colors"
+            className="p-1 sm:p-1.5 hover:bg-gray-700/50 dark:hover:bg-gray-700/50 light:hover:bg-gray-300 rounded transition-colors"
             aria-label="Decrease font size"
             title="Decrease font size"
           >
-            <span className="text-gray-300 dark:text-gray-300 light:text-gray-700 text-lg font-bold">
+            <span className="text-gray-300 dark:text-gray-300 light:text-gray-700 text-base sm:text-lg font-bold">
               A-
             </span>
           </button>
-          <span className="text-xs text-gray-400 dark:text-gray-400 light:text-gray-600 px-1">
+          <span className="hidden sm:inline text-xs text-gray-400 dark:text-gray-400 light:text-gray-600 px-1">
             {fontSize}px
           </span>
           <button
             onClick={increaseFontSize}
-            className="p-1.5 hover:bg-gray-700/50 dark:hover:bg-gray-700/50 light:hover:bg-gray-300 rounded transition-colors"
+            className="p-1 sm:p-1.5 hover:bg-gray-700/50 dark:hover:bg-gray-700/50 light:hover:bg-gray-300 rounded transition-colors"
             aria-label="Increase font size"
             title="Increase font size"
           >
-            <span className="text-gray-300 dark:text-gray-300 light:text-gray-700 text-lg font-bold">
+            <span className="text-gray-300 dark:text-gray-300 light:text-gray-700 text-base sm:text-lg font-bold">
               A+
             </span>
           </button>
